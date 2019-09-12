@@ -1,0 +1,19 @@
+# Security Groups
+Resources:
+  # Lambda VPC Security Group
+  SoclessLambdaVpcSG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: SG for Lambda functions in Socless VPC
+      VpcId:
+        Ref: SoclessVPC
+      Tags:
+        - Key: Name
+          Value: Socless Lambda SG
+
+
+Outputs:
+  LambdaVpcSG:
+    Description: Security Group ID for VPC
+    Value:
+      Ref: SoclessLambdaVpcSG

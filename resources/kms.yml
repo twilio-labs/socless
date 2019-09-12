@@ -1,0 +1,61 @@
+# KMS Resources
+Resources:
+  SoclessLambdaKmsKey:
+    Type: AWS::KMS::Key
+    Properties:
+      Description: KMS Key for encrypting Lambda variables
+      Enabled: true
+      EnableKeyRotation: true
+      KeyPolicy:
+        Version: "2012-10-17"
+        Id:
+          Fn::Sub: "${AWS::StackName}-lambda-env-encryption-key"
+        Statement:
+          -
+            Sid: "Allow administration of the key"
+            Effect: "Allow"
+            Principal:
+              AWS:
+                Fn::Sub: "arn:aws:iam::${AWS::AccountId}:root"
+            Action:
+              - "kms:Create*"
+              - "kms:Describe*"
+              - "kms:Enable*"
+              - "kms:List*"
+              - "kms:Put*"
+              - "kms:Update*"
+              - "kms:Revoke*"
+              - "kms:Disable*"
+              - "kms:Get*"
+              - "kms:Delete*"
+              - "kms:ScheduleKeyDeletion"
+              - "kms:CancelKeyDeletion"
+            Resource: "*"
+          -
+            Sid: "Allow Lambda Decryption"
+            Effect: "Allow"
+            Principal:
+              AWS:
+                Fn::Sub: ${LambdaExecutionRole.Arn}
+            Action:
+              - "kms:Decrypt"
+            Resource: "*"
+          -
+            Sid: "Allow Administator usage of key"
+            Effect: "Allow"
+            Principal:
+              AWS:
+                Fn::Sub: "arn:aws:iam::${AWS::AccountId}:root"
+            Action:
+              - "kms:Encrypt"
+              - "kms:Decrypt"
+            Resource: "*"
+
+
+# Outputs
+Outputs:
+  # Lambda KMS Key ARN
+  LambdaKmsKey:
+    Description: ID of KMS Key for encrypting and decrypting lambda environment variables
+    Value:
+      Ref: SoclessLambdaKmsKey

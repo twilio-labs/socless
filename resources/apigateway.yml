@@ -1,0 +1,17 @@
+# API Gateway
+Resources:
+  APIGateway:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Name: socless
+
+Outputs:
+  APIGatewayID:
+    Value:
+      Ref: APIGateway
+
+  APIGatewayRootResourceId:
+    Value:
+      Fn::GetAtt:
+        - APIGateway
+        - RootResourceId

@@ -1,0 +1,34 @@
+{
+  "name": "socless",
+  "config": {
+    "aws_profile": "default",
+    "dev": "--stage dev --region us-west-2",
+    "prod": "--stage prod --region us-east-1",
+    "sandbox": "--stage sandbox --region us-west-1"
+  },
+  "version": "1.0.0",
+  "description": "Socless' core infrastructure and functionality",
+  "main": "index.js",
+  "scripts": {
+    "test": "serverless --version",
+    "dev": "serverless deploy $npm_package_config_dev --aws-profile $npm_package_config_aws_profile --verbose",
+    "prod": "serverless deploy $npm_package_config_prod --aws-profile $npm_package_config_aws_profile --verbose",
+    "sandbox": "serverless deploy $npm_package_config_sandbox --aws-profile $npm_package_config_aws_profile --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/twilio/socless.git"
+  },
+  "keywords": [
+    "socless",
+    "security",
+    "automation"
+  ],
+  "author": "Ubani Balogun",
+  "license": "ISC",
+  "devDependencies": {},
+  "dependencies": {
+    "serverless": "^1.18.0",
+    "serverless-package-python-functions": "^0.5.0"
+  }
+}

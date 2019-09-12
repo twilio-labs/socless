@@ -1,0 +1,85 @@
+# Iam Resources
+Resources:
+  # Default Lambda Execution Role
+  LambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName:
+        Fn::Sub: "${AWS::StackName}-default-lambda-execution"
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          -
+            Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+                - apigateway.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonAPIGatewayInvokeFullAccess
+        - arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaDynamoDBExecutionRole
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+        - arn:aws:iam::aws:policy/AWSLambdaInvocation-DynamoDB
+        - arn:aws:iam::aws:policy/AWSStepFunctionsFullAccess
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole
+        - arn:aws:iam::aws:policy/AmazonS3FullAccess
+        - arn:aws:iam::aws:policy/AmazonSESFullAccess
+        - arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess
+
+  # AWS SFN State Machine Policy
+  StatesExecutionPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName:
+        Fn::Sub: "${AWS::StackName}-states-execution-policy"
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          -
+            Effect: Allow
+            Action:
+              - lambda:InvokeFunction
+            Resource: "*"
+      Roles:
+        -
+          Ref: StatesExecutionRole
+
+  # AWS SFN State Machine Execution Role
+  StatesExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName:
+        Fn::Sub: "${AWS::StackName}-states-execution"
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          -
+            Effect: Allow
+            Principal:
+              Service: states.${{self:provider.region}}.amazonaws.com
+            Action: sts:AssumeRole
+
+Outputs:
+  # Default Lambda execution role name
+  LambdaExecutionRole:
+    Description: "Default Lambda Execution Role"
+    Value:
+      Ref: LambdaExecutionRole
+
+  LambdaExecutionRoleArn:
+    Description: ARN of default Lambda Execution Role
+    Value:
+      Fn::Sub: ${LambdaExecutionRole.Arn}
+
+  # SFN Execution role name
+  StatesExecutionRole:
+    Description: "Default execution role for Socless Lambda functions"
+    Value:
+      Ref: StatesExecutionRole
+
+  StatesExecutionRoleArn:
+    Description: "Arn of States Execution Role"
+    Value:
+      Fn::Sub: ${StatesExecutionRole.Arn}

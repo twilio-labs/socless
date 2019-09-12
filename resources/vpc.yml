@@ -1,0 +1,178 @@
+# VPC Configurations
+Resources:
+  # EIP
+  SoclessEIP:
+    Type: AWS::EC2::EIP
+    Properties:
+      Domain: vpc
+
+  # Gateway
+  SoclessGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: Socless Internet Gateway
+
+  # Gateway Attachement
+  SoclessGatewayAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      InternetGatewayId:
+        Ref: SoclessGateway
+      VpcId:
+        Ref: SoclessVPC
+
+  # NAT
+  SoclessNat:
+    Type: AWS::EC2::NatGateway
+    Properties:
+      AllocationId:
+        Fn::Sub: ${SoclessEIP.AllocationId}
+      SubnetId:
+        Ref: SoclessPublicSubnet
+
+  # Private Function Route Table Association
+  SoclessPrivateFunctionRouteTableAssoc:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId:
+        Ref: SoclessPrivateFunctionRouteTable
+      SubnetId:
+        Ref: SoclessPrivateFunctionSubnet
+
+  # Private Services Route Table Association
+  SoclessPrivateServicesRouteTableAssoc:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId:
+        Ref: SoclessPrivateServicesRouteTable
+      SubnetId:
+        Ref: SoclessPrivateServicesSubnet
+
+  # Public Subnet Route Table Association
+  SoclessPublicSubnetRouteTableAssoc:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId:
+        Ref: SoclessPublicRouteTable
+      SubnetId:
+        Ref: SoclessPublicSubnet
+
+  # Private Function Route
+  SoclessPrivateFunctionRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      NatGatewayId:
+        Ref: SoclessNat
+      RouteTableId:
+        Ref: SoclessPrivateFunctionRouteTable
+
+  # Public Route
+  SoclessPublicRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId:
+        Ref: SoclessGateway
+      RouteTableId:
+        Ref: SoclessPublicRouteTable
+
+  # Private Function Route Table
+  SoclessPrivateFunctionRouteTable:
+    Type: AWS::EC2::RouteTable
+    DependsOn: SoclessGateway
+    Properties:
+      VpcId:
+        Fn::Sub: ${SoclessVPC}
+      Tags:
+        - Key: Name
+          Value: Socless Private Function RouteTable
+
+  # Private Services Route Table
+  SoclessPrivateServicesRouteTable:
+    Type: AWS::EC2::RouteTable
+    DependsOn: SoclessGateway
+    Properties:
+      VpcId:
+        Fn::Sub: ${SoclessVPC}
+      Tags:
+        - Key: Name
+          Value: Socless Private Services RouteTable
+
+  # Public Route Table
+  SoclessPublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    DependsOn: SoclessGateway
+    Properties:
+      VpcId:
+        Fn::Sub: ${SoclessVPC}
+      Tags:
+        - Key: Name
+          Value: Socless Public RouteTable
+
+  # Private Function Subnet
+  SoclessPrivateFunctionSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 10.1.4.0/22
+      MapPublicIpOnLaunch: false
+      VpcId:
+        Ref: SoclessVPC
+      Tags:
+        - Key: Name
+          Value: Socless Private Function Subnet
+
+  # Private Services Subnet
+  SoclessPrivateServicesSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 10.1.8.0/22
+      MapPublicIpOnLaunch: false
+      VpcId:
+        Ref: SoclessVPC
+      Tags:
+        - Key: Name
+          Value: Socless Private Services Subnet
+
+  # Public Subnet
+  SoclessPublicSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 10.1.0.0/22
+      MapPublicIpOnLaunch: false
+      VpcId:
+        Ref: SoclessVPC
+      Tags:
+        - Key: Name
+          Value: Socless Public Subnet
+
+  # VPC
+  SoclessVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.1.0.0/16
+      EnableDnsSupport: true
+      EnableDnsHostnames: false
+      InstanceTenancy: default
+      Tags:
+        - Key: Name
+          Value: Socless
+
+
+Outputs:
+  PrivateFunctionSubnet:
+    Description: Socless Private Function Subnet
+    Value:
+      Ref: SoclessPrivateFunctionSubnet
+
+  PublicSubnet:
+    Description: Public Subnet
+    Value:
+      Ref: SoclessPublicSubnet
+
+  EIP:
+    Description: Elastic IP address
+    Value:
+      Ref: SoclessEIP

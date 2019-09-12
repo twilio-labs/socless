@@ -1,0 +1,20 @@
+# AWS S3 Resources
+Resources:
+  SoclessVault:
+    Type: AWS::S3::Bucket
+    Properties:
+      Tags:
+        - Key: Name
+          Value: Socless Vault
+      LifecycleConfiguration:
+        Rules:
+          - ExpirationInDays: 1
+            Status: Enabled
+            Prefix: one_day_temp/
+
+# Outputs
+Outputs:
+  SoclessVault:
+    Description: Socless File Vault
+    Value:
+      Ref: SoclessVault
