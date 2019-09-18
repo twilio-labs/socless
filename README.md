@@ -8,7 +8,7 @@ Socless' core stack. Deploys Socless' core infrastructure and functions
 # Setup
 
 ```
-git clone git@github.com/twilio/socless.git
+git clone git@github.com/twilio-labs/socless.git
 cd socless
 npm install
 ```
