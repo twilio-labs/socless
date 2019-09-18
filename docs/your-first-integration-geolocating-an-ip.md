@@ -92,7 +92,7 @@ In the `socless-tutorial/functions` directory, create a subdirectory called `geo
 Notice that our integration makes use of the Python `requests` library which isn’t one of the libraries pre-packaged with AWS Lambda. As such, we’ll need to specify `requests` as a dependency with our deployment package. To do so, open the pre-existing `requirements.txt` file in the functions directory, and add requests at the bottom of the file. You file should end up looking like this:
 
 ```
-git+https://github.com/twilio/socless_python.git#egg=socless
+git+https://github.com/twilio-labs/socless_python.git#egg=socless
 requests
 ```
 The first dependency in the file is the Socless Python library that provides the `socless_bootstrap` function. Any dependency listed in the `functions/requirements.txt` file gets deployed will all functions in the `functions` folder. To learn more about configuring dependencies for functions, visit the [Socless & Serverless](socless-and-serverless.md) documentation page
