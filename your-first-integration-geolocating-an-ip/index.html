@@ -1,0 +1,971 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.2">
+    
+    
+      
+        <title>Your First Integration: Geolocating an IP - SOCless Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.30686662.css">
+      
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+    
+      
+    
+    
+  </head>
+  
+    <body dir="ltr">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#your-first-integration-geolocate-ip" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href=".." title="SOCless Docs" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              SOCless Docs
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Your First Integration: Geolocating an IP
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main" role="main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href=".." title="SOCless Docs" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    SOCless Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../deploying-socless/" title="Deploying Socless" class="md-nav__link">
+      Deploying Socless
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      Tutorials
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Tutorials
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-1" type="checkbox" id="nav-3-1" checked>
+    
+    <label class="md-nav__link" for="nav-3-1">
+      Getting Started
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-1">
+        Getting Started
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../getting-started/" title="Getting Started Tutorial" class="md-nav__link">
+      Getting Started Tutorial
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Your First Integration: Geolocating an IP
+      </label>
+    
+    <a href="./" title="Your First Integration: Geolocating an IP" class="md-nav__link md-nav__link--active">
+      Your First Integration: Geolocating an IP
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up" class="md-nav__link">
+    Setting Up
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coding-the-geoip-integration" class="md-nav__link">
+    Coding the GeoIP Integration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#specify-dependencies" class="md-nav__link">
+    Specify Dependencies
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuring-our-integration-for-deployment" class="md-nav__link">
+    Configuring our integration for Deployment
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploying-the-integration" class="md-nav__link">
+    Deploying the Integration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-the-integration" class="md-nav__link">
+    Testing the Integration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    Conclusion
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../your-second-integration-sending-a-slack-message/" title="Your Second Integration: Sending a Slack Message" class="md-nav__link">
+      Your Second Integration: Sending a Slack Message
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../your-first-playbook/" title="Your First Playbook" class="md-nav__link">
+      Your First Playbook
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../your-first-endpoint/" title="Your First Endpoint" class="md-nav__link">
+      Your First Endpoint
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../test-your-first-playbook/" title="Test Your First Playbook" class="md-nav__link">
+      Test Your First Playbook
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2">
+    
+    <label class="md-nav__link" for="nav-3-2">
+      Interacting With Humans via Slack
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-2">
+        Interacting With Humans via Slack
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../tutorial-interacting-with-humans-via-slack/" title="Interacting With Humans via Slack" class="md-nav__link">
+      Interacting With Humans via Slack
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../deploy-socless-slack/" title="Deploy Socless Slack" class="md-nav__link">
+      Deploy Socless Slack
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../human-interaction-overview/" title="Human Interaction Overview" class="md-nav__link">
+      Human Interaction Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../prompting-a-user-for-confirmation/" title="Prompt a User for Confirmation" class="md-nav__link">
+      Prompt a User for Confirmation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../making-choices-in-playbooks/" title="Making Choices in Playbooks" class="md-nav__link">
+      Making Choices in Playbooks
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../collect-information-using-a-slack-dialog/" title="Collect Information Using a Slack Dialog" class="md-nav__link">
+      Collect Information Using a Slack Dialog
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Reference Documentation
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Reference Documentation
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../socless-and-serverless/" title="Socless & Serverless" class="md-nav__link">
+      Socless & Serverless
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../parameter-references-and-template-variables/" title="Parameter References & Template Variables" class="md-nav__link">
+      Parameter References & Template Variables
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../human-interaction-architecture/" title="Human Interaction Architecture" class="md-nav__link">
+      Human Interaction Architecture
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../state-management-in-socless/" title="State Management in SOCless" class="md-nav__link">
+      State Management in SOCless
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      SOCless Betterments List
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        SOCless Betterments List
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../betterments-list/" title="Betterment List Overview" class="md-nav__link">
+      Betterment List Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../betterment-template/" title="Betterment Template" class="md-nav__link">
+      Betterment Template
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../about/" title="About SOCless" class="md-nav__link">
+      About SOCless
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up" class="md-nav__link">
+    Setting Up
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coding-the-geoip-integration" class="md-nav__link">
+    Coding the GeoIP Integration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#specify-dependencies" class="md-nav__link">
+    Specify Dependencies
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuring-our-integration-for-deployment" class="md-nav__link">
+    Configuring our integration for Deployment
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploying-the-integration" class="md-nav__link">
+    Deploying the Integration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-the-integration" class="md-nav__link">
+    Testing the Integration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    Conclusion
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="your-first-integration-geolocate-ip">Your First Integration: Geolocate IP</h1>
+<p>Socless uses Integrations to take actions within playbooks. An Integration is an AWS Lambda functions that uses the <code>socless_bootstrap</code> function from the Socless Python library to manage its execution life-cycle (i.e fetching its inputs and saving its outputs). Integrations typically integrate with 3rd party APIs – hence the name 'Integrations' – to accomplish a task.</p>
+<p>The bare-bones, pseudo-code implementation for any Socless integration is shown below</p>
+<pre><code>from socless import socless_bootstrap
+
+def handle_state(param1, param2, …):
+    &quot;&quot;&quot;Core action logic goes here&quot;&quot;&quot;
+    # Implement core actions (e.g api requests) and return dictionary with desired results
+    return {…}
+
+def lambda_handler(event, lambda_context):
+    &quot;&quot;&quot;Handles life-cycle of handle_state’s execution&quot;&quot;&quot;
+    return socless_bootstrap(event, lambda_context, handle_state, include_event=False)
+</code></pre>
+
+<p>The <code>socless_bootstrap</code> function takes the below parameters:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+<th>Required?</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>event</td>
+<td>Payload containing information the Integration needs to execute. Passed in either by an executing playbook or by a developer during testing.</td>
+<td>Yes</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>handle_state</td>
+<td>A function that implements the core logic of the Integration. Must return a dictionary</td>
+<td>Yes</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>include_event</td>
+<td>Boolean to specify if the whole playbook execution context (not lambda_context) should be made available to the handle_state function during its execution. Typically set to <code>True</code> for integrations that need to refer to elements of execution context in string templates. If <code>True</code> param1 of handle_state must be the keyword <code>context</code></td>
+<td>No</td>
+<td>FALSE</td>
+</tr>
+<tr>
+<td>lambda_context</td>
+<td>The Lambda context object passed in by AWS whenever it triggers a Lambda function</td>
+<td>Yes</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<p>In this tutorial, we'll learn the basics of Integration development by writing one that geolocates an IP address and returns its country, latitude and longitude.</p>
+<h2 id="setting-up">Setting Up</h2>
+<p>To begin, change out of socless directory at your command-line (if you’re still within it) to a higher-level project folder.</p>
+<p>Next, run the commands below to download the <code>socless-integrations-template</code> which contains the pre-configurations we need for developing our Integration</p>
+<pre><code>git clone git@github.com:twilio/socless-integrations-template.git socless-tutorial
+cd socless-tutorial
+./setup
+virtualenv --python=python3.7 venv
+source venv/bin/activate
+</code></pre>
+
+<p>The commands:</p>
+<ul>
+<li>clone the socless-integrations-template into a folder named <code>socless-tutorial</code></li>
+<li>run a setup script that installs the development dependencies we need (serverless framework and relevant plugins) then deletes the setup script.</li>
+<li>create and activate a Python 3.7 virtual environment which will be used to package our Integration when we're ready to deploy it.</li>
+</ul>
+<p>After running the commands, you should be left with a <code>socless-tutorial</code> directory that contains a <code>functions</code> folder. This folder is where the code for our tutorial Integrations will live.</p>
+<p>Now that we're setup, let's code our Integration</p>
+<h2 id="coding-the-geoip-integration">Coding the GeoIP Integration</h2>
+<p>For IP address geolocation, we’ll rely on <a href="https://tools.keycdn.com/geo.json">https://tools.keycdn.com/geo.json</a> which is a free geolocation API that requires no auth keys. This allows us keep things simple. Click the link to get an idea of the data the API returns.</p>
+<p>The geolocation logic for our integration will:</p>
+<ul>
+<li>be implemented in a <code>handle_state</code> function that only needs an IP as a parameter.</li>
+<li>use the python requests library to perform a GET request to https://tools.keycdn.com/geo.json with the url parameter <code>host={ip}</code></li>
+<li>return a dictionary containing the country name, city name, latitude and longitude of the IP address.</li>
+</ul>
+<p>Our Integration will have a <code>lambda_handler</code> function that</p>
+<ul>
+<li>serves as AWS Lambda's entry point for our integration</li>
+<li>invokes <code>socless_bootstrap</code> to manage its life-cycle</li>
+<li>return the results of socless_bootstrap</li>
+</ul>
+<p>Here’s what the implementation of the integration described above looks like</p>
+<pre><code>import requests
+from socless import socless_bootstrap
+
+def handle_state(ip):
+    r = requests.get(&quot;https://tools.keycdn.com/geo.json&quot;, params={&quot;host&quot;: ip})
+    geoip_info = r.json()['data']['geo']
+    desired_results = {
+        &quot;country&quot;: geoip_info['country_name'],
+        &quot;latitude&quot;: str(geoip_info['latitude']),
+        &quot;longitude&quot;: str(geoip_info['longitude'])
+        }
+    return desired_results
+
+
+def lambda_handler(event, context):
+    return socless_bootstrap(event, context, handle_state)
+
+</code></pre>
+
+<p>In the <code>socless-tutorial/functions</code> directory, create a subdirectory called <code>geoip</code> and save the implementation in a file called <code>lambda_function.py</code>. That’s all the code we need to write for our Integrations logic.</p>
+<h2 id="specify-dependencies">Specify Dependencies</h2>
+<p>Notice that our integration makes use of the Python <code>requests</code> library which isn’t one of the libraries pre-packaged with AWS Lambda. As such, we’ll need to specify <code>requests</code> as a dependency with our deployment package. To do so, open the pre-existing <code>requirements.txt</code> file in the functions directory, and add requests at the bottom of the file. You file should end up looking like this:</p>
+<pre><code>git+https://github.com/twilio-labs/socless_python.git#egg=socless
+requests
+</code></pre>
+
+<p>The first dependency in the file is the Socless Python library that provides the <code>socless_bootstrap</code> function. Any dependency listed in the <code>functions/requirements.txt</code> file gets deployed will all functions in the <code>functions</code> folder. To learn more about configuring dependencies for functions, visit the <a href="../socless-and-serverless/">Socless &amp; Serverless</a> documentation page</p>
+<p>Our integration’s implementation is complete and our dependencies have been been specified. The last thing we need to do is configure the function for deployment.</p>
+<h2 id="configuring-our-integration-for-deployment">Configuring our integration for Deployment</h2>
+<p>Socless Integrations are deployed using the Serverless Framework. To deploy our integration, open the <code>serverless.yml</code> file and configure a function that:</p>
+<ul>
+<li>is reference-able in our config as <code>GeoIP</code></li>
+<li>is named <code>socless_tutorial_geoip</code></li>
+<li>has a handler at <code>lambda_function.lambda_handler</code></li>
+<li>has the description: "Integration to geolocate an IP address"</li>
+<li>creates its source package from <code>functions/geoip</code></li>
+</ul>
+<p>Here's what that configuration looks like:</p>
+<pre><code>functions:
+  GeoIP:
+    name: socless_tutorial_geoip
+    handler: lambda_function.lambda_handler
+    description: Integration to geolocate an ip
+    package:
+      include:
+        - functions/geoip
+</code></pre>
+
+<p>Next, we need to ensure that the AWS ARN of the function is output from the deployment stack after deployment. Doing so will allow the arn to be referenced by the playbook we will write shortly. To accomplish this, include the below configuration in the <code>serverless.yml</code> file, starting on the same indentation level as the <code>functions</code> key-word in the file</p>
+<pre><code>resources:
+  Outputs:
+    GeoIP:
+      Description: ARN of GeoIP integration
+      Value:
+        Fn::Sub: ${GeoIPLambdaFunction.Arn}     
+</code></pre>
+
+<p>With that, our Integration is fully configured for deployment.</p>
+<h2 id="deploying-the-integration">Deploying the Integration</h2>
+<p>If your Python 3.7 virtual environment is no longer active, reactivate it by running the command <code>. venv/bin/activate</code> from within your socless-tutorial directory.</p>
+<p>Now, deploy the integration be executing:</p>
+<pre><code>npm run dev
+</code></pre>
+
+<p>Once the deployment is complete, you should see the ARN for the Integration's Lambda function displayed. You don't need to note this ARN down as we'll reference it by the <code>GeoIP</code> name whenever we need it.</p>
+<h2 id="testing-the-integration">Testing the Integration</h2>
+<p>Log into the AWS console, navigate to the Lambda service in your Socless dev region, and open the Lambda function for the integration we just deployed (socless_tutorial_geoip).</p>
+<p>Click <code>Test</code>, and configure the below test event:</p>
+<pre><code>{
+    &quot;_testing&quot;: true,
+    &quot;State_Config&quot;: {
+        &quot;Name&quot;: &quot;Test_State&quot;,
+        &quot;Parameters&quot;: {
+            &quot;ip&quot;: &quot;113.63.125.3&quot;
+        }
+    }
+}
+</code></pre>
+
+<p>Observe that the key-value pair in the <code>Parameters</code> object maps exactly to the parameters we specified for the <code>handle_state</code> function of our integration. This test event simulates a small subset of the data that the integration would receive when it's called by an actual playbook execution.</p>
+<p>Give the test event any name of your choosing then hit create.
+Once the test event is created, click <code>Test</code> to test the integration. If the test executes successfully, you'll have an Execution result like below which shows the test event and the resulting gelocated IP in a <code>results</code> object.</p>
+<pre><code>{
+  &quot;_testing&quot;: true,
+  &quot;State_Config&quot;: {
+    &quot;Name&quot;: &quot;Test_State&quot;,
+    &quot;Parameters&quot;: {
+      &quot;ip&quot;: &quot;113.63.125.3&quot;
+    }
+  },
+  &quot;results&quot;: {
+    &quot;country&quot;: &quot;China&quot;,
+    &quot;latitude&quot;: '29.65',
+    &quot;longitude&quot;: '91.1'
+  }
+}
+</code></pre>
+
+<p>Feel free to change the IP address in your test case and play around a little.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Congratulations! You've written, deployed and tested your first integration! Pat yourself on the back, take a breather, then head to the next page to write your second integration</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../getting-started/" title="Getting Started Tutorial" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Getting Started Tutorial
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../your-second-integration-sending-a-slack-message/" title="Your Second Integration: Sending a Slack Message" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Your Second Integration: Sending a Slack Message
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.c648116f.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+      
+    
+  </body>
+</html>

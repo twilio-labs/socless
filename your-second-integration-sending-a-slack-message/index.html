@@ -1,0 +1,851 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.2">
+    
+    
+      
+        <title>Your Second Integration: Sending a Slack Message - SOCless Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.30686662.css">
+      
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+    
+      
+    
+    
+  </head>
+  
+    <body dir="ltr">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#your-second-integration-send-slack-message" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href=".." title="SOCless Docs" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              SOCless Docs
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Your Second Integration: Sending a Slack Message
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main" role="main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href=".." title="SOCless Docs" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    SOCless Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../deploying-socless/" title="Deploying Socless" class="md-nav__link">
+      Deploying Socless
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      Tutorials
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Tutorials
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-1" type="checkbox" id="nav-3-1" checked>
+    
+    <label class="md-nav__link" for="nav-3-1">
+      Getting Started
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-1">
+        Getting Started
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../getting-started/" title="Getting Started Tutorial" class="md-nav__link">
+      Getting Started Tutorial
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../your-first-integration-geolocating-an-ip/" title="Your First Integration: Geolocating an IP" class="md-nav__link">
+      Your First Integration: Geolocating an IP
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+    <a href="./" title="Your Second Integration: Sending a Slack Message" class="md-nav__link md-nav__link--active">
+      Your Second Integration: Sending a Slack Message
+    </a>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../your-first-playbook/" title="Your First Playbook" class="md-nav__link">
+      Your First Playbook
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../your-first-endpoint/" title="Your First Endpoint" class="md-nav__link">
+      Your First Endpoint
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../test-your-first-playbook/" title="Test Your First Playbook" class="md-nav__link">
+      Test Your First Playbook
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2">
+    
+    <label class="md-nav__link" for="nav-3-2">
+      Interacting With Humans via Slack
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-2">
+        Interacting With Humans via Slack
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../tutorial-interacting-with-humans-via-slack/" title="Interacting With Humans via Slack" class="md-nav__link">
+      Interacting With Humans via Slack
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../deploy-socless-slack/" title="Deploy Socless Slack" class="md-nav__link">
+      Deploy Socless Slack
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../human-interaction-overview/" title="Human Interaction Overview" class="md-nav__link">
+      Human Interaction Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../prompting-a-user-for-confirmation/" title="Prompt a User for Confirmation" class="md-nav__link">
+      Prompt a User for Confirmation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../making-choices-in-playbooks/" title="Making Choices in Playbooks" class="md-nav__link">
+      Making Choices in Playbooks
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../collect-information-using-a-slack-dialog/" title="Collect Information Using a Slack Dialog" class="md-nav__link">
+      Collect Information Using a Slack Dialog
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Reference Documentation
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Reference Documentation
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../socless-and-serverless/" title="Socless & Serverless" class="md-nav__link">
+      Socless & Serverless
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../parameter-references-and-template-variables/" title="Parameter References & Template Variables" class="md-nav__link">
+      Parameter References & Template Variables
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../human-interaction-architecture/" title="Human Interaction Architecture" class="md-nav__link">
+      Human Interaction Architecture
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../state-management-in-socless/" title="State Management in SOCless" class="md-nav__link">
+      State Management in SOCless
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      SOCless Betterments List
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        SOCless Betterments List
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../betterments-list/" title="Betterment List Overview" class="md-nav__link">
+      Betterment List Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../betterment-template/" title="Betterment Template" class="md-nav__link">
+      Betterment Template
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../about/" title="About SOCless" class="md-nav__link">
+      About SOCless
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="your-second-integration-send-slack-message">Your Second Integration: Send Slack Message</h1>
+<p>Our second Integration will send a message using Slack. In this tutorial, we'll learn learn how to:</p>
+<ul>
+<li>Setup a Slack Bot for use with Socless</li>
+<li>Store our bots credentials for use with Socless Integrations</li>
+<li>Create an Integration that uses the Slack bot to send messages</li>
+</ul>
+<p>This documentation assumes you already have a <a href="https://slack.com">Slack instance</a> that's ready to use.</p>
+<h1 id="setting-up-a-slack-bot">Setting up a Slack bot</h1>
+<p>Follow the steps below to setup a Slack bot for our tutorial:</p>
+<ol>
+<li>In a web browser, log into your Slack instance</li>
+<li>Navigate to https://api.slack.com/apps and hit <code>Create New App</code></li>
+<li>Enter a name for your application. The tutorial will use <code>socless-bot</code></li>
+<li>Select your development workspace. It should be the workspace you want your bot to be in</li>
+<li>Hit Create app</li>
+<li>On the "Basic Information" page for your app, click "Bots"</li>
+<li>Click "Add Bot User"</li>
+<li>Set a display name of your choice. We'll use <code>socless-bot</code></li>
+<li>Set a default username for your bot. We'll use <code>socless-bot</code></li>
+<li>Set "Always Show My Bot as Online" to "On"</li>
+<li>Click "Add Bot User" again to save the changes</li>
+<li>In the left sidebar, select "Oauth &amp; Permissions"</li>
+<li>Click "Install App to Workspace". Click "Authorize" to add the bot to your Slack Workspace</li>
+<li>Once authorization is complete, you will be redirected back to the "Oauth &amp; Permissions" page which will now display a "Bot User OAuth Access Token". Note this token down. Our integration will need this token</li>
+<li>Log into your Slack instance in the Slack app. Click "Direct Messages" in the sidebar and search for your bot. Your bot should show up, ready for action.</li>
+<li>Create a public channel in your Slack instance called "bat-signals". We'll need it for the rest of our tutorial.</li>
+<li>Invite your Slack bot to the #bat-signals channel so that it can send messages to it</li>
+</ol>
+<h1 id="storing-our-bots-credential-for-use-in-socless">Storing our Bots Credential for Use in Socless</h1>
+<p>The current recommendation for storing credentials for use in the Socless Framework is to use the AWS Systems Manager (SSM) Parameter Store service.</p>
+<p>To store the bot token in SSM Parameter Store:</p>
+<ol>
+<li>Log into your AWS Account in the your Socless dev region and navigate to AWS Systems Manager</li>
+<li>In the left sidebar of the Systems Manager page, select Parameters Store (you may need to scroll to see it)</li>
+<li>On the Parameter Store page, click "Create Parameter"</li>
+<li>Name your parameter /socless/slack/bot_token</li>
+<li>Add a description for the parameter. We'll go with "Access token for Socless Slack bot"</li>
+<li>Under <code>Type</code>, select SecureString.</li>
+<li>Under KMS Key ID select <code>alias/socless/lambdaKmsKey</code></li>
+<li>Under value, paste the <code>Bot User OAuth Access Token</code></li>
+<li>Click "Create Parameter"</li>
+</ol>
+<p>Your bot token should now be encrypted and saved in AWS SSM Parameter Store under the name <code>/socless/slack/bot_token</code>. We'll specify that name in our serverless.yml file when we're configuring our integration for deployment</p>
+<p>We're now set to write our Slack 'Send Message' Integration</p>
+<h1 id="writing-our-slack-send-message-integration">Writing our Slack 'Send Message' Integration</h1>
+<h2 id="coding-the-integration">Coding the integration</h2>
+<p>Create a <code>send_message</code> folder in our <code>socless-tutorial/functions</code> directory, and include a <code>lambda_function.py</code> in that folder.</p>
+<p>In <code>lambda_function.py</code>, implement an integration that:</p>
+<ul>
+<li>Fetches the Slack bot token from its environment variables.</li>
+<li>Has a <code>handle_state</code> function with parameters <code>context</code>, <code>target</code>, <code>target_type</code>, <code>message_template</code> where the logic to send a Slack message is implemented.</li>
+<li>Determines the appropriate Slack ID to send the message to depending the <code>target_type</code>  <code>user</code> or <code>channel</code></li>
+<li>Invokes the <code>socless_template_string</code> library function to render the <code>message_template</code> using the playbook <code>context</code></li>
+<li>Uses the Slack <code>chat.postMessage</code> api to send the message and returns the resulting response from the Slack API in a dictionary</li>
+<li>Has a <code>lambda_handler</code> entry function that invokes <code>socless_bootstrap</code> to manage its life-cycle with the <code>include_event</code> parameter set to <code>True</code> so that all data from the playbook execution is made available to the integration (we'll need it data to render our message template)</li>
+</ul>
+<p>Here's our implementation for the integration</p>
+<pre><code>import slack, os
+from socless import socless_bootstrap, socless_template_string
+
+SOCLESS_BOT_TOKEN = os.environ.get('SOCLESS_BOT_TOKEN')
+sc = slack.WebClient(token=SOCLESS_BOT_TOKEN)
+
+def find_user(name, page_limit=100, include_locale='false'):
+    &quot;&quot;&quot;
+    Find a user's Slack profile based on their full or display name
+    &quot;&quot;&quot;
+    paginate = True
+    next_cursor = ''
+    while paginate:
+        resp = sc.users_list(cursor=next_cursor, limit=page_limit, include_locale=include_locale)
+        data = resp.data
+        next_cursor = resp.data['response_metadata'].get('next_cursor','')
+        if not next_cursor:
+            paginate = False
+
+        for user in data['members']:
+            user_names = [user.get('name'), user.get('real_name'), user.get('profile',{}).get('real_name')]
+            if name in user_names:
+                return {&quot;found&quot;:True, &quot;user&quot;: user}
+
+    return {&quot;found&quot;: False}
+
+
+def handle_state(context, target, target_type, message_template):
+    &quot;&quot;&quot;
+    Send a Slack message to either a user or channel
+    &quot;&quot;&quot;
+    target_id = ''
+    # Determine Slack ID for the target
+    if target_type == 'user':
+        result = find_user(target)
+        if result['found'] == False:
+            raise Exception(f&quot;User {target} not found in Slack instance&quot;)
+
+        target_id = result['user']['id']
+    else:
+        target_id = f&quot;#{target}&quot;
+
+    # Render the message template and send the message
+    message = socless_template_string(message_template, context)
+    resp = sc.chat_postMessage(channel=target_id, text=message, as_user=True)
+    return resp.data
+
+def lambda_handler(event,lambda_context):
+    return socless_bootstrap(event,lambda_context,handle_state, include_event=True)
+</code></pre>
+
+<h2 id="specifying-dependencies">Specifying Dependencies</h2>
+<p>Our integration relies on the Python slackclient library which isn't available on AWS Lambda by default. To specify that our dependency be included with our deployment package, create a <code>requirements.txt</code> file in the <code>send_message</code> folder and add <code>slackclient</code> to the first line. Because this requirements.txt exists within the send_message folder, <code>slackclient</code> will only be included in the package for the <code>send_message</code> function.</p>
+<h2 id="configuring-our-integration-for-deployment">Configuring Our Integration for Deployment</h2>
+<p>Open the <code>serverless.yml</code> file. First, in the <code>function</code> section, include a configuration for our integration that:</p>
+<ul>
+<li>is referenceable as <code>SendMessage</code></li>
+<li>named <code>socless_tutorial_send_message</code> in AWS Lambda</li>
+<li>Has handler <code>lambda_function.lambda_handler</code></li>
+<li>Has the description "Sends a message via Slack"</li>
+<li>Creates its source package from <code>functions/send_message</code></li>
+<li>Has environment variable <code>SOCLESS_BOT_TOKEN</code> which references the Slack bot token we saved in SSM as <code>socless/slack/bot_token</code>
+Here's what that configuration looks like:</li>
+</ul>
+<pre><code>SendMessage:
+    name: socless_tutorial_send_message
+    handler: lambda_function.lambda_handler
+    description: Send a message using Slack
+    package:
+      include:
+        -  functions/send_message
+    environment:
+      SOCLESS_BOT_TOKEN: ${{ssm:/socless/slack/bot_token~true}}
+</code></pre>
+
+<p>Ensure the configuration starts at one-indentiation level under the <code>functions</code> section. This configuration will deploy a Lambda function and Cloudwatch Log Group that are referenceable as <code>SendMessagelambdaFunction</code> and <code>SendMessageLogGroup</code> respectively.</p>
+<p>Next, in the resources Output section, expose the ARN of the Lambda function using the configuration below so that it can be referenced by playbooks</p>
+<pre><code>SendMessage:
+      Description: ARN of SendMessage Integration
+      Value:
+        Fn::Sub: ${SendMessageLambdaFunction.Arn}
+</code></pre>
+
+<p>With that, our integration is fully configured and ready for deployment</p>
+<h2 id="deploying-the-integration">Deploying the integration</h2>
+<p>Activate your Python 3 virtual environment (if it is no longer active), and run the below command within the socless-tutorial directory</p>
+<pre><code>npm run dev
+</code></pre>
+
+<p>Once the deployment is complete, you should see the ARN for the integration's Lambda function displayed. You don't need to note this ARN down as we'll reference it by the <code>SendMessage</code> name whenever we need it</p>
+<h1 id="testing-the-integration">Testing the Integration</h1>
+<p>Log into the AWS Console, navigate to the Lambda service in your Socless dev region and open the <code>socless_tutorial_send_message</code> intgration which we just deployed.</p>
+<p>Configure the below test event which sends a "hello world" message to the <code>bat-signals</code> channel which we created and added our bot to earlier in the tutorial</p>
+<pre><code>{
+  &quot;_testing&quot;: true,
+  &quot;State_Config&quot;: {
+    &quot;Name&quot;: &quot;Test_State&quot;,
+    &quot;Parameters&quot;: {
+      &quot;target&quot;: &quot;bat-signals&quot;,
+      &quot;target_type&quot;: &quot;channel&quot;,
+      &quot;message_template&quot;: &quot;Hello, world!&quot;
+    }
+  }
+}
+</code></pre>
+
+<p>Save and execute the test case, You should get a "Hello, world!" message from the bot in the bat-signals channel.</p>
+<p>Now, let's configure a second test case that's much more representative of how we'd use our integration in a full-fledged playbook. It includes an <code>artifacts</code> object which simulates information about the alert that triggered the playbook that calls our integration.</p>
+<pre><code>{
+    &quot;_testing&quot;: true,
+    &quot;artifacts&quot;: {
+        &quot;event&quot;: {
+            &quot;details&quot;: {
+                &quot;distress_channel&quot;: &quot;bat-signals&quot;,
+                &quot;distressed_user&quot;: &quot;Commissioner Gordon&quot;
+            }
+        }
+    },
+    &quot;State_Config&quot;: {
+        &quot;Name&quot;: &quot;Test_State&quot;,
+        &quot;Parameters&quot;: {
+            &quot;target&quot;: &quot;$.artifacts.event.details.distress_channel&quot;,
+            &quot;target_type&quot;: &quot;channel&quot;,
+            &quot;message_template&quot;: &quot;The Bat Signal was turned on by {context.artifacts.event.details.distressed_user}&quot;
+        }
+    }
+}
+</code></pre>
+
+<p>Save the test case and execute the function. You should receive a message in the bat-signals channel that reads "The Bat Signal was turned on by Commissioner Gordon".</p>
+<p>However, as you can see from our <code>Parameters</code> config, neither the "bat-signals" channel nor "Commissioner Gordon" were explicitly passed to the <code>target</code> or <code>message_template</code> parameters. Instead, those values were passed using a Parameter reference (with format <code>$.*</code>) and a template variable (format <code>{context.*}</code> ) respectively that referenced the parts of our artifacts object that contained the information we needed. You can learn all about parameter references and template variables in the <a href="/parameter-references-and-template-variables">Parameter References &amp; Template Variables</a> documentation, or you can keep following the tutorial to learn as you go.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>We've created our second integration! :champagne:</p>
+<p>In doing so we've:
+- Learned how to store credentials and AWS SSM Parameter Store for use with Socless Integrations
+- How to pass those parameters to our integration via an <code>environment</code> variable configuration
+- Gotten a very brief intro to <a href="/parameter-references-and-template-variables">Parameter References &amp; Template Variables</a></p>
+<p>With both integrations created, we're ready to write our first playbook. Head to the next page to begin</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../your-first-integration-geolocating-an-ip/" title="Your First Integration: Geolocating an IP" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Your First Integration: Geolocating an IP
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../your-first-playbook/" title="Your First Playbook" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Your First Playbook
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.c648116f.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+      
+    
+  </body>
+</html>
