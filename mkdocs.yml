@@ -1,0 +1,32 @@
+site_name: SOCless Docs
+# docs_dir: 'wiki_docs'
+nav:
+  - Home: index.md
+  - Deploying Socless: "deploying-socless.md"
+  - Tutorials:
+    - Getting Started:
+      - 'Getting Started Tutorial' : 'getting-started.md'
+      - 'Your First Integration: Geolocating an IP' : 'your-first-integration-geolocating-an-ip.md'
+      - 'Your Second Integration: Sending a Slack Message' : 'your-second-integration-sending-a-slack-message.md'
+      - 'Your First Playbook' : 'your-first-playbook.md'
+      - 'Your First Endpoint' : 'your-first-endpoint.md'
+      - 'Test Your First Playbook' : 'test-your-first-playbook.md'
+    - Interacting With Humans via Slack:
+      - 'Interacting With Humans via Slack' : 'tutorial-interacting-with-humans-via-slack.md'
+      - 'Deploy Socless Slack' : 'deploy-socless-slack.md'
+      - 'Human Interaction Overview' : 'human-interaction-overview.md'
+      - 'Prompt a User for Confirmation' : 'prompting-a-user-for-confirmation.md'
+      - 'Making Choices in Playbooks' : 'making-choices-in-playbooks.md'
+      - 'Collect Information Using a Slack Dialog' : 'collect-information-using-a-slack-dialog.md'
+  - Reference Documentation:
+    - 'Socless & Serverless' : 'socless-and-serverless.md'
+    - 'Parameter References & Template Variables' : 'parameter-references-and-template-variables.md'
+    - 'Human Interaction Architecture' : 'human-interaction-architecture.md'
+    - 'state-management-in-socless.md'
+  - SOCless Betterments List:
+    - 'Betterment List Overview' : 'betterments-list.md'
+    - 'Betterment Template': 'betterment-template.md'
+  - 'about.md'
+
+theme:
+  name: 'material'
