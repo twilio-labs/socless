@@ -48,7 +48,7 @@ def lambda_handler(event, context):
             }
         }
 
-        r = create_events(events,context)
-        return r
+        create_events(events,context)
+        return {"completed": True}
 
     return socless_bootstrap(event,context, handle_state, include_event=True)
