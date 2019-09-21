@@ -3,6 +3,7 @@ site_name: SOCless Docs
 nav:
   - Home: index.md
   - Deploying Socless: "deploying-socless.md"
+  - "key-concepts-and-terms.md"
   - Tutorials:
     - Getting Started:
       - 'Getting Started Tutorial' : 'getting-started.md'
@@ -26,6 +27,7 @@ nav:
   - SOCless Betterments List:
     - 'Betterment List Overview' : 'betterments-list.md'
     - 'Betterment Template': 'betterment-template.md'
+  - "faqs.md"
   - 'about.md'
 
 theme:
