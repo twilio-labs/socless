@@ -27,7 +27,7 @@ def handle_state(investigation_id,status):
     if not investigation_id:
         return {"result": "failure", "message": "No investigation_id provided"}
     if status not in VALID_STATUSES:
-        return {"result": "failure", "message": "Status {} is not a valid status".format(status)}
+        return {"result": "failure", "message": f"Status {status} is not a valid status"}
 
     event_table = boto3.resource('dynamodb').Table(EVENTS_TABLE)
     # Investigation_id in Socless now matches the ID of the original event ''
@@ -40,7 +40,7 @@ def handle_state(investigation_id,status):
         )
     except ClientError as e:
         if e.response['Error']['Code'] == 'ConditionalCheckFailedException':
-            return { "result": "failure", "message": "Investigation with id {} does not exist".format(investigation_id) }
+            return { "result": "failure", "message": f"Investigation with id {investigation_id} does not exist"}
         else:
             raise
     else:
