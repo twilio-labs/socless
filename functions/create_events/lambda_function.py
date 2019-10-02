@@ -43,7 +43,7 @@ def lambda_handler(event, context):
             'playbook': playbook,
             'dedup_keys': dedup_keys,
             'event_meta': {
-                'data source': "Execution: {}".format(execution_id),
+                'data source': f"Execution: {execution_id}",
                 'description': 'Event created from within a Playbook'
             }
         }
