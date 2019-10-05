@@ -11,14 +11,17 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License
+
+
 def lambda_handler(event, context):
+    """Merge parallel output"""
     if not event:
         return {}
 
     first = event[0]
     for output in event[1:]:
-        for key,value in list(output.items()):
-            if isinstance(value,dict):
+        for key, value in list(output.items()):
+            if isinstance(value, dict):
                 first[key].update(value)
             else:
                 first[key] = value
