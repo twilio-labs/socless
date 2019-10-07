@@ -12,10 +12,13 @@ lib64/
 parts/
 sdist/
 var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
-.DS_Store
+MANIFEST
 
 #Pip
 src
@@ -32,3 +35,5 @@ secrets.yml
 # Virtual environments
 venv
 venv*
+pyvenv.cfg
+.venv
