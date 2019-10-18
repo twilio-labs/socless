@@ -88,4 +88,4 @@ Since we’re still in the development phase, we’ll only deploy the event endp
 ```
 npm run dev
 ```
-Once the deployment is successful, you will find a URL that ends in `/tutorial` in the *Service Information* section. This is the URL for the endpoint we just deployed. It’s where our tutorial detection system will send our alert payload. Keep it handy. We'll need it to [test the playbook](./Test-Your-First-Playbook)
+Once the deployment is successful, you will find a URL that ends in `/tutorial` in the *Service Information* section. This is the URL for the endpoint we just deployed. It’s where our tutorial detection system will send our alert payload. Keep it handy. We'll need it to [test the playbook](test-your-first-playbook.md)

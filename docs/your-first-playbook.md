@@ -1,6 +1,6 @@
 # Introduction
 Socless Playbooks are simply JSON objects that describe the actions to take and resources to use to automate a response plan.
-On deployment, the JSON objects are converted to State Machines that can be executed by the [AWS Step Functions](https://docs.aws.amazon.com/step-functions/latest/dg/welcome.html) service. As such, the JSON objects are written according to the AWS States Language specification [but with some slight differences](./Differences-Between-Socless-Playbooks-And-Stock-AWS-Step-Functions-State-Machines)
+On deployment, the JSON objects are converted to State Machines that can be executed by the [AWS Step Functions](https://docs.aws.amazon.com/step-functions/latest/dg/welcome.html) service. As such, the JSON objects are written according to the AWS States Language specification [but with some slight differences](socless-vs-stock-stepfunctions.md)
 
 The basic, bare-bones structure for any Socless Playbook JSON object is shown below:
 
