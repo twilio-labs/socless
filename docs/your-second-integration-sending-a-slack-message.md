@@ -202,7 +202,7 @@ Now, let's configure a second test case that's much more representative of how w
 
 Save the test case and execute the function. You should receive a message in the bat-signals channel that reads "The Bat Signal was turned on by Commissioner Gordon".
 
-However, as you can see from our `Parameters` config, neither the "bat-signals" channel nor "Commissioner Gordon" were explicitly passed to the `target` or `message_template` parameters. Instead, those values were passed using a Parameter reference (with format `$.*`) and a template variable (format `{context.*}` ) respectively that referenced the parts of our artifacts object that contained the information we needed. You can learn all about parameter references and template variables in the [Parameter References & Template Variables](/parameter-references-and-template-variables) documentation, or you can keep following the tutorial to learn as you go.
+However, as you can see from our `Parameters` config, neither the "bat-signals" channel nor "Commissioner Gordon" were explicitly passed to the `target` or `message_template` parameters. Instead, those values were passed using a Parameter reference (with format `$.*`) and a template variable (format `{context.*}` ) respectively that referenced the parts of our artifacts object that contained the information we needed. You can learn all about parameter references and template variables in the [Parameter References & Template Variables](parameter-references-and-template-variables.md) documentation, or you can keep following the tutorial to learn as you go.
 
 
 
@@ -213,6 +213,6 @@ In doing so we've:
 
 - Learned how to store credentials and AWS SSM Parameter Store for use with Socless Integrations
 - How to pass those parameters to our integration via an `environment` variable configuration
-- Gotten a very brief intro to [Parameter References & Template Variables](/parameter-references-and-template-variables)
+- Gotten a very brief intro to [Parameter References & Template Variables](parameter-references-and-template-variables.md)
 
 With both integrations created, we're ready to write our first playbook. Head to the next page to begin

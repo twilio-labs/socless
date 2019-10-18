@@ -15,4 +15,4 @@ The `AwaitMessageResponseActivity` is simply an [AWS Step Function's Activity](h
 
 The [Human Interaction Architecture](/human-interaction-architecture) documentation provides an in-depth explanation of how human interactions work in Socless and how you can build your own. For now, we'll focus on using Socless Slack (which implements human interaction in Slack) to augment our Getting Started playbook.
 
-Let's start by including functionality to [prompt a user for confirmation](./Prompting-A-User-For-Confirmation)
+Let's start by including functionality to [prompt a user for confirmation](prompting-a-user-for-confirmation.md)

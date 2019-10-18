@@ -32,3 +32,6 @@ secrets.yml
 # Virtual environments
 venv
 venv*
+
+# mkdocs
+site/

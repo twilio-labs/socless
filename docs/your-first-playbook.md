@@ -124,9 +124,10 @@ Our `Geolocate_IP` state will be a Task state that makes use of our GeoIP integr
 The update starts the definition for our `Geolocate_IP` state. Note that the current convention for naming states in Socless is to use `Upper_Case_Underscore_Separated` notation.
 
 A bare-bones configuration for a Task state requires the below field:
+
 - `Type`: The state type. For Task states, this must be set to `Task`
 - `Resource`: The URI for the resource the state uses to execute its action. For Lambda Integrations, this is the ARN of the Lambda function for the Integration. Since we'll be using the GeoIP Integration, we'll specify its ARN using the `${{self:custom.tutorial.GeoIP}}` variable we configured in our serverless.yml file.
-- `Parameters`: An object with a key-value mapping of all the parameters an Integration needs to complete its action. As explained in the [Parameter References & Template Variables](./Parameter-References-&-Template-Variables) documentation, there are many ways to pass parameters to Integrations depending on where the information lives. The IP address we want to geolocate in our playbook is contained in the event payload sent to our Playbook and can be referenced using the parameter `$.artifacts.event.details.ip`. Since our GeoIP integration requires an `ip`, we'll pass it the IP using the configuration `{"ip": "$.artifacts.event.details.ip"}`
+- `Parameters`: An object with a key-value mapping of all the parameters an Integration needs to complete its action. As explained in the [Parameter References & Template Variables](parameter-references-and-template-variables.md) documentation, there are many ways to pass parameters to Integrations depending on where the information lives. The IP address we want to geolocate in our playbook is contained in the event payload sent to our Playbook and can be referenced using the parameter `$.artifacts.event.details.ip`. Since our GeoIP integration requires an `ip`, we'll pass it the IP using the configuration `{"ip": "$.artifacts.event.details.ip"}`
 - A transition configuration, either `Next` if we're transitioning to another state, or `End` if the state being configured is the final state of the playbook. Our GeoIP state will transition to "Notify_Bat_Signals_Channel" once it completes its execution, so we'll configure a `Next` transition
 
 The full configuration of our Geolocate_IP state is shown below.
@@ -198,4 +199,4 @@ To deploy the playbook to our dev environment, execute the below command:
 npm run dev
 ```
 # Conclusion
-Head to the AWS Step Functions Console in the AWS Region of your Socless dev environment. You should see the InvestigateLogin Playbook listed there. The easiest way to test our playbook is to send an alert to our Playbook through an Event Endpoint. So let's [create your first event endpoint](/your-first-endpoint)
+Head to the AWS Step Functions Console in the AWS Region of your Socless dev environment. You should see the InvestigateLogin Playbook listed there. The easiest way to test our playbook is to send an alert to our Playbook through an Event Endpoint. So let's [create your first event endpoint](your-first-endpoint.md)
