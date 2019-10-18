@@ -1,1 +1,1 @@
-> Hey there! You've landed on a documentation page we're yet to create. If you desperately need this piece of documentation, please create an issue requesting this documentation page, or vote on a currently existing issue to help us prioritize it
+> Hey there! You've landed on a documentation page we're yet to create. If you need this documentation page ASAP, please help us prioritize it by creating an issue on our Github project at [https://github.com/twilio-labs/socless](https://github.com/twilio-labs/socless)
