@@ -803,14 +803,14 @@ Here's what that configuration looks like:</li>
 </code></pre>
 
 <p>Save the test case and execute the function. You should receive a message in the bat-signals channel that reads "The Bat Signal was turned on by Commissioner Gordon".</p>
-<p>However, as you can see from our <code>Parameters</code> config, neither the "bat-signals" channel nor "Commissioner Gordon" were explicitly passed to the <code>target</code> or <code>message_template</code> parameters. Instead, those values were passed using a Parameter reference (with format <code>$.*</code>) and a template variable (format <code>{context.*}</code> ) respectively that referenced the parts of our artifacts object that contained the information we needed. You can learn all about parameter references and template variables in the <a href="/parameter-references-and-template-variables">Parameter References &amp; Template Variables</a> documentation, or you can keep following the tutorial to learn as you go.</p>
+<p>However, as you can see from our <code>Parameters</code> config, neither the "bat-signals" channel nor "Commissioner Gordon" were explicitly passed to the <code>target</code> or <code>message_template</code> parameters. Instead, those values were passed using a Parameter reference (with format <code>$.*</code>) and a template variable (format <code>{context.*}</code> ) respectively that referenced the parts of our artifacts object that contained the information we needed. You can learn all about parameter references and template variables in the <a href="../parameter-references-and-template-variables/">Parameter References &amp; Template Variables</a> documentation, or you can keep following the tutorial to learn as you go.</p>
 <h1 id="conclusion">Conclusion</h1>
 <p>We've created our second integration! :champagne:</p>
 <p>In doing so we've:</p>
 <ul>
 <li>Learned how to store credentials and AWS SSM Parameter Store for use with Socless Integrations</li>
 <li>How to pass those parameters to our integration via an <code>environment</code> variable configuration</li>
-<li>Gotten a very brief intro to <a href="/parameter-references-and-template-variables">Parameter References &amp; Template Variables</a></li>
+<li>Gotten a very brief intro to <a href="../parameter-references-and-template-variables/">Parameter References &amp; Template Variables</a></li>
 </ul>
 <p>With both integrations created, we're ready to write our first playbook. Head to the next page to begin</p>
                 

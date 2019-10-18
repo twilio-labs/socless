@@ -718,11 +718,13 @@ cd socless-playbooks
 </code></pre>
 
 <p>The update starts the definition for our <code>Geolocate_IP</code> state. Note that the current convention for naming states in Socless is to use <code>Upper_Case_Underscore_Separated</code> notation.</p>
-<p>A bare-bones configuration for a Task state requires the below field:
-- <code>Type</code>: The state type. For Task states, this must be set to <code>Task</code>
-- <code>Resource</code>: The URI for the resource the state uses to execute its action. For Lambda Integrations, this is the ARN of the Lambda function for the Integration. Since we'll be using the GeoIP Integration, we'll specify its ARN using the <code>${{self:custom.tutorial.GeoIP}}</code> variable we configured in our serverless.yml file.
-- <code>Parameters</code>: An object with a key-value mapping of all the parameters an Integration needs to complete its action. As explained in the <a href="./Parameter-References-&amp;-Template-Variables">Parameter References &amp; Template Variables</a> documentation, there are many ways to pass parameters to Integrations depending on where the information lives. The IP address we want to geolocate in our playbook is contained in the event payload sent to our Playbook and can be referenced using the parameter <code>$.artifacts.event.details.ip</code>. Since our GeoIP integration requires an <code>ip</code>, we'll pass it the IP using the configuration <code>{"ip": "$.artifacts.event.details.ip"}</code>
-- A transition configuration, either <code>Next</code> if we're transitioning to another state, or <code>End</code> if the state being configured is the final state of the playbook. Our GeoIP state will transition to "Notify_Bat_Signals_Channel" once it completes its execution, so we'll configure a <code>Next</code> transition</p>
+<p>A bare-bones configuration for a Task state requires the below field:</p>
+<ul>
+<li><code>Type</code>: The state type. For Task states, this must be set to <code>Task</code></li>
+<li><code>Resource</code>: The URI for the resource the state uses to execute its action. For Lambda Integrations, this is the ARN of the Lambda function for the Integration. Since we'll be using the GeoIP Integration, we'll specify its ARN using the <code>${{self:custom.tutorial.GeoIP}}</code> variable we configured in our serverless.yml file.</li>
+<li><code>Parameters</code>: An object with a key-value mapping of all the parameters an Integration needs to complete its action. As explained in the <a href="../parameter-references-and-template-variables/">Parameter References &amp; Template Variables</a> documentation, there are many ways to pass parameters to Integrations depending on where the information lives. The IP address we want to geolocate in our playbook is contained in the event payload sent to our Playbook and can be referenced using the parameter <code>$.artifacts.event.details.ip</code>. Since our GeoIP integration requires an <code>ip</code>, we'll pass it the IP using the configuration <code>{"ip": "$.artifacts.event.details.ip"}</code></li>
+<li>A transition configuration, either <code>Next</code> if we're transitioning to another state, or <code>End</code> if the state being configured is the final state of the playbook. Our GeoIP state will transition to "Notify_Bat_Signals_Channel" once it completes its execution, so we'll configure a <code>Next</code> transition</li>
+</ul>
 <p>The full configuration of our Geolocate_IP state is shown below.</p>
 <pre><code>{
     &quot;Playbook&quot;: &quot;InvestigateLogin&quot;,
@@ -786,7 +788,7 @@ cd socless-playbooks
 </code></pre>
 
 <h1 id="conclusion">Conclusion</h1>
-<p>Head to the AWS Step Functions Console in the AWS Region of your Socless dev environment. You should see the InvestigateLogin Playbook listed there. The easiest way to test our playbook is to send an alert to our Playbook through an Event Endpoint. So let's <a href="/your-first-endpoint">create your first event endpoint</a></p>
+<p>Head to the AWS Step Functions Console in the AWS Region of your Socless dev environment. You should see the InvestigateLogin Playbook listed there. The easiest way to test our playbook is to send an alert to our Playbook through an Event Endpoint. So let's <a href="../your-first-endpoint/">create your first event endpoint</a></p>
                 
                   
                 
