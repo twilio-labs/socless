@@ -1,5 +1,6 @@
 site_name: SOCless Docs
 # docs_dir: 'wiki_docs'
+site_url: https://twilio-labs.github.io/socless/
 nav:
   - Home: index.md
   - Deploying Socless: "deploying-socless.md"
