@@ -210,6 +210,7 @@ However, as you can see from our `Parameters` config, neither the "bat-signals" 
 We've created our second integration! :champagne:
 
 In doing so we've:
+
 - Learned how to store credentials and AWS SSM Parameter Store for use with Socless Integrations
 - How to pass those parameters to our integration via an `environment` variable configuration
 - Gotten a very brief intro to [Parameter References & Template Variables](/parameter-references-and-template-variables)

@@ -25,6 +25,7 @@ nav:
     - 'Parameter References & Template Variables' : 'parameter-references-and-template-variables.md'
     - 'Human Interaction Architecture' : 'human-interaction-architecture.md'
     - 'state-management-in-socless.md'
+    - 'SOCless vs Stock AWS Step Functions': 'socless-vs-stock-stepfunctions.md'
   - SOCless Betterments List:
     - 'Betterment List Overview' : 'betterments-list.md'
     - 'Betterment Template': 'betterment-template.md'
