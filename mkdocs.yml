@@ -1,8 +1,10 @@
 site_name: SOCless Docs
 # docs_dir: 'wiki_docs'
+site_url: https://twilio-labs.github.io/socless/
 nav:
   - Home: index.md
   - Deploying Socless: "deploying-socless.md"
+  - "key-concepts-and-terms.md"
   - Tutorials:
     - Getting Started:
       - 'Getting Started Tutorial' : 'getting-started.md'
@@ -26,6 +28,7 @@ nav:
   - SOCless Betterments List:
     - 'Betterment List Overview' : 'betterments-list.md'
     - 'Betterment Template': 'betterment-template.md'
+  - "faqs.md"
   - 'about.md'
 
 theme:
