@@ -1,5 +1,5 @@
 # Your Second Integration: Send Slack Message
-Our second Integration will send a message using Slack. In this tutorial, we'll learn learn how to:
+Our second Integration will send a message using Slack. In this tutorial, we'll learn how to:
 
 - Setup a Slack Bot for use with Socless
 - Store our bots credentials for use with Socless Integrations
@@ -157,7 +157,7 @@ npm run dev
 Once the deployment is complete, you should see the ARN for the integration's Lambda function displayed. You don't need to note this ARN down as we'll reference it by the `SendMessage` name whenever we need it
 
 # Testing the Integration
-Log into the AWS Console, navigate to the Lambda service in your Socless dev region and open the `socless_tutorial_send_message` intgration which we just deployed.
+Log into the AWS Console, navigate to the Lambda service in your Socless dev region and open the `socless_tutorial_send_message` integration which we just deployed.
 
 Configure the below test event which sends a "hello world" message to the `bat-signals` channel which we created and added our bot to earlier in the tutorial
 
