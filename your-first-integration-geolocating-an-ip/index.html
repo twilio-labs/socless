@@ -851,13 +851,13 @@ def lambda_handler(event, context):
 
 <p>In the <code>socless-tutorial/functions</code> directory, create a subdirectory called <code>geoip</code> and save the implementation in a file called <code>lambda_function.py</code>. That’s all the code we need to write for our Integrations logic.</p>
 <h2 id="specify-dependencies">Specify Dependencies</h2>
-<p>Notice that our integration makes use of the Python <code>requests</code> library which isn’t one of the libraries pre-packaged with AWS Lambda. As such, we’ll need to specify <code>requests</code> as a dependency with our deployment package. To do so, open the pre-existing <code>requirements.txt</code> file in the functions directory, and add requests at the bottom of the file. You file should end up looking like this:</p>
+<p>Notice that our integration makes use of the Python <code>requests</code> library which isn’t one of the libraries pre-packaged with AWS Lambda. As such, we’ll need to specify <code>requests</code> as a dependency with our deployment package. To do so, open the pre-existing <code>requirements.txt</code> file in the functions directory, and add requests at the bottom of the file. Your file should end up looking like this:</p>
 <pre><code>git+https://github.com/twilio-labs/socless_python.git#egg=socless
 requests
 </code></pre>
 
 <p>The first dependency in the file is the Socless Python library that provides the <code>socless_bootstrap</code> function. Any dependency listed in the <code>functions/requirements.txt</code> file gets deployed will all functions in the <code>functions</code> folder. To learn more about configuring dependencies for functions, visit the <a href="../socless-and-serverless/">Socless &amp; Serverless</a> documentation page</p>
-<p>Our integration’s implementation is complete and our dependencies have been been specified. The last thing we need to do is configure the function for deployment.</p>
+<p>Our integration’s implementation is complete and our dependencies have been specified. The last thing we need to do is configure the function for deployment.</p>
 <h2 id="configuring-our-integration-for-deployment">Configuring our integration for Deployment</h2>
 <p>Socless Integrations are deployed using the Serverless Framework. To deploy our integration, open the <code>serverless.yml</code> file and configure a function that:</p>
 <ul>
@@ -911,7 +911,7 @@ requests
 
 <p>Observe that the key-value pair in the <code>Parameters</code> object maps exactly to the parameters we specified for the <code>handle_state</code> function of our integration. This test event simulates a small subset of the data that the integration would receive when it's called by an actual playbook execution.</p>
 <p>Give the test event any name of your choosing then hit create.
-Once the test event is created, click <code>Test</code> to test the integration. If the test executes successfully, you'll have an Execution result like below which shows the test event and the resulting gelocated IP in a <code>results</code> object.</p>
+Once the test event is created, click <code>Test</code> to test the integration. If the test executes successfully, you'll have an Execution result like below which shows the test event and the resulting geolocated IP in a <code>results</code> object.</p>
 <pre><code>{
   &quot;_testing&quot;: true,
   &quot;State_Config&quot;: {
