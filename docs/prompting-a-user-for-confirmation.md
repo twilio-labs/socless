@@ -14,8 +14,7 @@ Next, add the below `Interaction` state to your `States` object.
             "target": "$.artifacts.event.details.username",
             "target_type": "user",
             "text": "Hi {context.artifacts.event.details.username}, I noticed that your account was logged into from {context.results.Geolocate_IP.country}",
-            "prompt_text": "Did you login from {context.results.Geolocate_IP.country}?",
-            "receiver": "Await_User_Verification"
+            "prompt_text": "Did you login from {context.results.Geolocate_IP.country}?"
           },
           "Next": "Post_Update_To_Bat_Signals"
         }
@@ -38,13 +37,13 @@ The state, which is called `Verify_Login_With_User`, uses the Lambda Integration
       "Parameters": {
         "target": "bat-signals",
         "target_type": "channel",
-        "message_template": "User, `{context.artifacts.event.details.username}` responded `{context.results.Await_User_Verification.actions.value}` to the alert"
+        "message_template": "User, `{context.artifacts.event.details.username}` responded `{context.results.Verify_Login_With_User.actions.value}` to the alert"
       },
       "End": true
     }
 ```
 
-`Post_Update_To_Bat_Signals` uses the Socless Slack `SendMessage` integration to send a message to the channel. This `SendMessage` integration is identical to the one we created in the [Getting Started tutorial](/your-second-integration-sending-a-slack-Message). We pass it the #bat-signals channel and the templatized message to send. Pay attention to the `{results.Await_User_Verification.actions.value}` variable in the message template. When a Sockless Slack message button is pushed, the result is returned in a dictionary that contains, amongst other things, information about what button was pushed. The information is stored at `*.actions.value` and is the string `"true"` if `yes` was pressed, or `"false"` if `no` was pressed. In the next tutorial, we'll learn how to use that information to guide the execution of our workflow.
+`Post_Update_To_Bat_Signals` uses the Socless Slack `SendMessage` integration to send a message to the channel. This `SendMessage` integration is identical to the one we created in the [Getting Started tutorial](/your-second-integration-sending-a-slack-Message). We pass it the #bat-signals channel and the templatized message to send. Pay attention to the `{results.Verify_Login_With_User.actions.value}` variable in the message template. When a SOCless Slack message button is pushed, the result is returned in a dictionary that contains, amongst other things, information about what button was pushed. The information is stored at `*.actions.value` and is the string `"true"` if `yes` was pressed, or `"false"` if `no` was pressed. In the next tutorial, we'll learn how to use that information to guide the execution of our workflow.
 
 For now, let's test our updated playbook to see how it works.
 
