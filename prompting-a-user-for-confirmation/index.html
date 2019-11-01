@@ -34,7 +34,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.2">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
     
     
       
@@ -659,27 +659,21 @@
                 <p>Open the InvestigateLogin playbook in your socless-playbooks repository. The playbook is at the path <code>playbooks/investigate_login/playbook.json</code></p>
 <p>Take a second to review and admire the playbook. Currently, it starts at a <code>Geolocate_IP</code> state and ends at a <code>Notify_Bat_Signals_Channel</code> state.</p>
 <p>Modify <code>Notify_Bat_Signals_Channel</code> to transition to a state called <code>Verify_Login_With_User</code>. Do with by changing the transition configuration for <code>Notify_Bat_Signals_Channel</code> from <code>"End": true</code> to <code>"Next": "Verify_Login_With_User"</code>.</p>
-<p>Next, let's add human interaction into our playbook using the Socless Slack PromptForConfirmation integration and the Socless AwaitMessageResponseActivity receiver. Add the below snippets to the <code>States</code> object of your playbook. Note that it doesn't matter the order you add them, as long as the transitions (<code>Next</code> fields) are configured correctly.</p>
+<p>Next, add the below <code>Interaction</code> state to your <code>States</code> object.</p>
 <pre><code>&quot;Verify_Login_With_User&quot;: {
-          &quot;Type&quot;: &quot;Task&quot;,
+          &quot;Type&quot;: &quot;Interaction&quot;,
           &quot;Resource&quot;: &quot;${{self:custom.slack.PromptForConfirmation}}&quot;,
           &quot;Parameters&quot;: {
             &quot;target&quot;: &quot;$.artifacts.event.details.username&quot;,
             &quot;target_type&quot;: &quot;user&quot;,
             &quot;text&quot;: &quot;Hi {context.artifacts.event.details.username}, I noticed that your account was logged into from {context.results.Geolocate_IP.country}&quot;,
-            &quot;prompt_text&quot;: &quot;Did you login from {context.results.Geolocate_IP.country}?&quot;,
-            &quot;receiver&quot;: &quot;Await_User_Verification&quot;
+            &quot;prompt_text&quot;: &quot;Did you login from {context.results.Geolocate_IP.country}?&quot;
           },
-          &quot;Next&quot;: &quot;Await_User_Verification&quot;
-        },
-&quot;Await_User_Verification&quot;: {
-          &quot;Type&quot;: &quot;Task&quot;,
-          &quot;Resource&quot;: &quot;${{self:custom.socless.AwaitMessageResponseActivity}}&quot;,
           &quot;Next&quot;: &quot;Post_Update_To_Bat_Signals&quot;
         }
 </code></pre>
 
-<p><code>Verify_Login_With_User</code> uses the Lambda Integration, PromptForConfirmation, to send a yes-no button prompt to the user. It accepts the parameters:</p>
+<p>The state, which is called <code>Verify_Login_With_User</code>, uses the Lambda Integration, PromptForConfirmation, to send a yes-no button prompt to the user. It accepts the parameters:</p>
 <ul>
 <li><code>target</code>: the Slack entity being messaged</li>
 <li><code>target_type</code>: The type of Slack entity being messaged (in this case, a user)</li>
@@ -687,21 +681,19 @@
 <li><code>prompt_text</code>: The text that asks as a subject line for the yes-no prompt</li>
 <li><code>receiver</code>: The name of the state in the playbook that will receive the response (in this case Await_User_Verification)</li>
 </ul>
-<p>It then immediately transitions to <code>Await_User_Verifcation</code> which is the receiver that will capture the users' response. <code>Await_User_Verification</code> is also a Task state. However, unlike other Task states, it doesn't rely on a Lambda Integration. Instead, it relies on the Socless <code>AwaitMessageResponseActivity</code> which is an AWS Step Functions Activity that receives data from sources external to the playbook -- hence why it doesn't need parameters in its configuration. The <code>AwaitMessageResponseActivity</code> receiver concludes the human interaction that was started by the prior state. <strong>Whenever you use an integration that starts a human interaction, you'll need to configure a Task state that uses <code>AwaitMessageResponseActivity</code> immediately after the integration to conclude the human interaction</strong></p>
-<p>Our <code>Await_User_Verification</code> state transitions to <code>Post_Update_To_Bat_Signals</code>. Configure that state to post an update to the #bat-signals channel so we get feedback on the user's response. Do so by adding the below snippet to your state machine</p>
 <pre><code>&quot;Post_Update_To_Bat_Signals&quot;: {
       &quot;Type&quot;: &quot;Task&quot;,
       &quot;Resource&quot;: &quot;${{self:custom.slack.SendMessage}}&quot;,
       &quot;Parameters&quot;: {
         &quot;target&quot;: &quot;bat-signals&quot;,
         &quot;target_type&quot;: &quot;channel&quot;,
-        &quot;message_template&quot;: &quot;User, `{context.artifacts.event.details.username}` responded `{context.results.Await_User_Verification.actions.value}` to the alert&quot;
+        &quot;message_template&quot;: &quot;User, `{context.artifacts.event.details.username}` responded `{context.results.Verify_Login_With_User.actions.value}` to the alert&quot;
       },
       &quot;End&quot;: true
     }
 </code></pre>
 
-<p><code>Post_Update_To_Bat_Signals</code> uses the Socless Slack <code>SendMessage</code> integration to send a message to the channel. This <code>SendMessage</code> integration is identical to the one we created in the <a href="/your-second-integration-sending-a-slack-Message">Getting Started tutorial</a>. We pass it the #bat-signals channel and the templatized message to send. Pay attention to the <code>{results.Await_User_Verification.actions.value}</code> variable in the message template. When a Sockless Slack message button is pushed, the result is returned in a dictionary that contains, amongst other things, information about what button was pushed. The information is stored at <code>*.actions.value</code> and is the string <code>"true"</code> if <code>yes</code> was pressed, or <code>"false"</code> if <code>no</code> was pressed. In the next tutorial, we'll learn how to use that information to guide the execution of our workflow.</p>
+<p><code>Post_Update_To_Bat_Signals</code> uses the Socless Slack <code>SendMessage</code> integration to send a message to the channel. This <code>SendMessage</code> integration is identical to the one we created in the <a href="/your-second-integration-sending-a-slack-Message">Getting Started tutorial</a>. We pass it the #bat-signals channel and the templatized message to send. Pay attention to the <code>{results.Verify_Login_With_User.actions.value}</code> variable in the message template. When a SOCless Slack message button is pushed, the result is returned in a dictionary that contains, amongst other things, information about what button was pushed. The information is stored at <code>*.actions.value</code> and is the string <code>"true"</code> if <code>yes</code> was pressed, or <code>"false"</code> if <code>no</code> was pressed. In the next tutorial, we'll learn how to use that information to guide the execution of our workflow.</p>
 <p>For now, let's test our updated playbook to see how it works.</p>
 <h2 id="testing-our-updates">Testing our updates</h2>
 <p>Since our playbook has already been listed in our <code>socless-playbooks</code> serverless.yml, we simply need to redeploy <code>socless-playbooks</code> to publish our updates. Do so by running the below command. Be sure to change <code>dev</code> to match the environment you're deploying to (for our tutorials, it should be dev)</p>
@@ -799,7 +791,7 @@ The alert payload is below:</p>
       
     </div>
     
-      <script src="../assets/javascripts/application.c648116f.js"></script>
+      <script src="../assets/javascripts/application.ac79c3b0.js"></script>
       
       <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
       

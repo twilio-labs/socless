@@ -34,7 +34,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.2">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
     
     
       
@@ -597,15 +597,7 @@
                   <h1>Human Interaction Overview</h1>
                 
                 <p>Socless' Human Interaction Workflow enables the incorporation of human input into your playbooks. Using the tools provided by the workflow, Socless developers can create playbooks that interact with users via messaging channels like Slack.</p>
-<p>To use the Human Interaction Workflow, two Task states must be configured in a playbook:</p>
-<ol>
-<li>One that sends out a message to a user using a Lambda Integration that starts a human interaction</li>
-<li>Another that returns the users' response to the playbook using Socless' <code>AwaitMessageResponseActivity</code> resource</li>
-</ol>
-<p><strong>The states must be configured in the sequence described above, i.e. the state that sends the message using an integration must immediately transition to a state that uses the <code>AwaitMessageResponseActivity</code> state to receive the user's response</strong></p>
-<p>The diagram below shows the Human Interaction Workflow in use in a playbook</p>
-<p>[diagram coming soon]</p>
-<p>The <code>AwaitMessageResponseActivity</code> is simply an <a href="https://docs.aws.amazon.com/step-functions/latest/dg/concepts-activities.html">AWS Step Function's Activity</a> that pauses a playbook's execution until the user's response is returned to the playbook. A simplified way to think of it is as a receiver for a message coming into a playbook. As such, we'll refer to it as the AwaitMessageResponseActivity receiver during the course of our tutorial</p>
+<p>The Human Interaction Workflow is used by configuring an <code>Interaction</code> state in a playbook. <code>Interaction</code> states are configured the same way as <code>Task</code> state, with the difference being that <code>Interaction</code> states have their <code>Type</code> set to  <code>Interaction</code></p>
 <p>The <a href="/human-interaction-architecture">Human Interaction Architecture</a> documentation provides an in-depth explanation of how human interactions work in Socless and how you can build your own. For now, we'll focus on using Socless Slack (which implements human interaction in Slack) to augment our Getting Started playbook.</p>
 <p>Let's start by including functionality to <a href="../prompting-a-user-for-confirmation/">prompt a user for confirmation</a></p>
                 
@@ -677,7 +669,7 @@
       
     </div>
     
-      <script src="../assets/javascripts/application.c648116f.js"></script>
+      <script src="../assets/javascripts/application.ac79c3b0.js"></script>
       
       <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
       
