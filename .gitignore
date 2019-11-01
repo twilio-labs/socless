@@ -38,3 +38,6 @@ venv
 venv*
 pyvenv.cfg
 .venv
+
+# mkdocs
+site/

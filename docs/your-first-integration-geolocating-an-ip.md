@@ -89,7 +89,7 @@ def lambda_handler(event, context):
 In the `socless-tutorial/functions` directory, create a subdirectory called `geoip` and save the implementation in a file called `lambda_function.py`. That’s all the code we need to write for our Integrations logic.
 
 ## Specify Dependencies
-Notice that our integration makes use of the Python `requests` library which isn’t one of the libraries pre-packaged with AWS Lambda. As such, we’ll need to specify `requests` as a dependency with our deployment package. To do so, open the pre-existing `requirements.txt` file in the functions directory, and add requests at the bottom of the file. You file should end up looking like this:
+Notice that our integration makes use of the Python `requests` library which isn’t one of the libraries pre-packaged with AWS Lambda. As such, we’ll need to specify `requests` as a dependency with our deployment package. To do so, open the pre-existing `requirements.txt` file in the functions directory, and add requests at the bottom of the file. Your file should end up looking like this:
 
 ```
 git+https://github.com/twilio-labs/socless_python.git#egg=socless
@@ -97,7 +97,7 @@ requests
 ```
 The first dependency in the file is the Socless Python library that provides the `socless_bootstrap` function. Any dependency listed in the `functions/requirements.txt` file gets deployed will all functions in the `functions` folder. To learn more about configuring dependencies for functions, visit the [Socless & Serverless](socless-and-serverless.md) documentation page
 
-Our integration’s implementation is complete and our dependencies have been been specified. The last thing we need to do is configure the function for deployment.
+Our integration’s implementation is complete and our dependencies have been specified. The last thing we need to do is configure the function for deployment.
 
 ## Configuring our integration for Deployment
 Socless Integrations are deployed using the Serverless Framework. To deploy our integration, open the `serverless.yml` file and configure a function that:
@@ -162,7 +162,7 @@ Click `Test`, and configure the below test event:
 Observe that the key-value pair in the `Parameters` object maps exactly to the parameters we specified for the `handle_state` function of our integration. This test event simulates a small subset of the data that the integration would receive when it's called by an actual playbook execution.
 
 Give the test event any name of your choosing then hit create.
-Once the test event is created, click `Test` to test the integration. If the test executes successfully, you'll have an Execution result like below which shows the test event and the resulting gelocated IP in a `results` object.
+Once the test event is created, click `Test` to test the integration. If the test executes successfully, you'll have an Execution result like below which shows the test event and the resulting geolocated IP in a `results` object.
 
 ```
 {

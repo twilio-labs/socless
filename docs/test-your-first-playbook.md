@@ -23,6 +23,6 @@ curl -X POST {endpoint-url} -d @playbooks/investigate_login/test_case.json
 
 Once the request completes, you should receive a message in the #bat-signals channel. Furthermore, the AWS Step Functions console will show the execution history for your playbook.
 
-Congratulations! You've successfully completed your first playbook 🍾 
+Congratulations! You've successfully completed your first playbook 🍾
 
-Keep on learning by heading to the tutorial on [Interacting with Humans in Slack](./Tutorial:-Interacting-with-Humans-via-Slack)
+Keep on learning by heading to the tutorial on [Interacting with Humans in Slack](tutorial-interacting-with-humans-via-slack.md)
