@@ -2,6 +2,11 @@
 
 SOCless is a serverless framework built to help security teams easily automate their incident response and operations workflows.
 
+# Overview
+
+SOCless uses the AWS Step Functions and AWS Lambda services to execute user-defined workflows. The workflows, called Playbooks, are defined as JSON objects and triggered by real-time alerts from data sources or AWS CloudWatch schedules.
+                                             
+![](https://twilio-labs.github.io/socless/imgs/socless-base-architecture.png)    
 
 Features
 ---
@@ -14,3 +19,5 @@ Features
 - Serverless design has low cost, low operational overhead, and scales effortlessly
 
 Ready? Check out the [docs!](https://twilio-labs.github.io/socless/)
+
+Join our [community Slack workspace](https://join.slack.com/t/socless/shared_invite/enQtODA3ODEzNzcwNDgxLTBiYjVjYjI4ODI4YTY5YzM4OWRlYjQ1Yzg4M2EzMGUzMGMyYThlN2U5NTI5OWIwZWE1ZTcwNjA2MjgyZDRmMjg)
