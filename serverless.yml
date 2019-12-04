@@ -82,6 +82,10 @@ resources:
         Description: Cache returned results
         Value:
           Fn::Sub: ${CacheResultsLambdaFunction.Arn}
+      SoclessLogFindings:
+        Description: Generate and upload SOCless log findings to a logging bucket
+        Value:
+          Fn::Sub: ${SoclessLogFindingsLambdaFunction.Arn}
 
 package:
   individually: true
@@ -188,3 +192,15 @@ functions:
       include:
         - functions/cache_results
       artifact: ${{self:custom.pkgPyFuncs.buildDir}}/${{self:functions.CacheResults.name}}.zip
+
+  SoclessLogFindings:
+    handler: lambda_function.lambda_handler
+    name: socless_log_findings
+    description: Generate and upload SOCless log findings to a logging bucket
+    environment:
+      SOCLESS_Logs:
+        Ref: SoclessLogs
+    package:
+      include:
+        - functions/socless_log_findings
+      artifact: ${{self:custom.pkgPyFuncs.buildDir}}/${{self:functions.SoclessLogFindings.name}}.zip
