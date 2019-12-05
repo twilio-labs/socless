@@ -11,20 +11,39 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License
-from socless import *
+from socless import socless_bootstrap
+from socless.utils import gen_id
 from datetime import datetime
 import boto3
+import botocore
 import json
 import os
 
+
+def save_to_s3(file_name, log_object, bucket_name):
+    status = ''
+    s3 = boto3.resource('s3')
+    try:
+        s3.Bucket(bucket_name).put_object(Key=file_name,Body=json.dumps(log_object))
+        status = 'Success'
+    except botocore.exceptions.ClientError as e:
+        raise Exception("Failed to store the log file to S3:\n", e)
+        status = 'Fail'
+    return { "status" : status }
+
+
 def lambda_handler(event,context):
+
+    # Nest handle_state inside lambda_handler to access raw context object
     def handle_state(event_context, findings):
         """
-        create a log file and upload it to SOCless logging bucket
+        Create a log file and upload it to SOCless logging bucket.
 
         Args:
             findings (obj): The findings to be logged, and it can be any variable type that's JSON serializable
-            bucket_name (str): The name of the bucket where you want to upload logs to
+
+        Env:
+            SOCLESS_Logs (str): The name of the bucket where you want to upload logs to
 
         Returns:
             A dict containing the file_id (S3 Object path) and vault_id (Socless logging bucket
@@ -58,5 +77,7 @@ def lambda_handler(event,context):
             "event_payload": event_payload,
             "findings": findings
         }
-        return save_to_s3(file_id, log, bucket_name, False)
+
+        return save_to_s3(file_id, log, bucket_name)
+
     return socless_bootstrap(event,context,handle_state, include_event=True)
