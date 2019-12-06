@@ -11,7 +11,7 @@
       <meta http-equiv="x-ua-compatible" content="ie=edge">
       
       
-        <link rel="canonical" href="http://twilio-labs.github.io/socless/making-choices-in-playbooks/">
+        <link rel="canonical" href="https://twilio-labs.github.io/socless/making-choices-in-playbooks/">
       
       
       
@@ -82,7 +82,7 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="http://twilio-labs.github.io/socless/" title="SOCless Docs" class="md-header-nav__button md-logo">
+        <a href="https://twilio-labs.github.io/socless/" title="SOCless Docs" class="md-header-nav__button md-logo">
           
             <i class="md-icon"></i>
           
@@ -152,7 +152,7 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <a href="http://twilio-labs.github.io/socless/" title="SOCless Docs" class="md-nav__button md-logo">
+    <a href="https://twilio-labs.github.io/socless/" title="SOCless Docs" class="md-nav__button md-logo">
       
         <i class="md-icon"></i>
       
@@ -602,19 +602,19 @@
 <li>Inform the user that help is on the way if they weren't responsible for the login</li>
 </ul>
 <p>Start by removing the <code>Post_Update_To_Bat_Signals</code> state from the investigate_login Playbook. Delete both the state name and configuration object.</p>
-<p>Then, change the <code>Next</code> transition of the <code>Await_User_Verification</code> state to <code>Did_User_Login</code>. <code>Did_User_Login</code> will be the name of our <code>Choice</code> state.</p>
+<p>Then, change the <code>Next</code> transition of the <code>Verify_Login_With_User</code> state to <code>Did_User_Login</code>. <code>Did_User_Login</code> will be the name of our <code>Choice</code> state.</p>
 <p>Configure <code>Did_User_Login</code> as shown below. We'll talk through the config in a moment</p>
 <pre><code>&quot;Did_User_Login&quot;: {
       &quot;Type&quot;: &quot;Choice&quot;,
       &quot;Choices&quot;: [
         {
-          &quot;Variable&quot;: &quot;$.results.Await_User_Verification.actions.value&quot;,
-          &quot;StringEquals&quot;: &quot;yes&quot;,
+          &quot;Variable&quot;: &quot;$.results.Verify_Login_With_User.actions.value&quot;,
+          &quot;StringEquals&quot;: &quot;true&quot;,
           &quot;Next&quot;: &quot;Thank_User&quot;
         },
         {
-          &quot;Variable&quot;: &quot;$.results.Await_User_Verification.actions.value&quot;,
-          &quot;StringEquals&quot;: &quot;no&quot;,
+          &quot;Variable&quot;: &quot;$.results.Verify_Login_With_User.actions.value&quot;,
+          &quot;StringEquals&quot;: &quot;false&quot;,
           &quot;Next&quot;: &quot;Reassure_User&quot;
         }
       ]
@@ -626,7 +626,7 @@
 <p>The Comparison expresses the type of check to perform against the 'Variable'. Choice Rules support different types of comparisons such as <code>StringEquals</code>, <code>BooleanEquals</code>, <code>NumericEquals</code> and more. For a full list of the supported comparisons, refer to the <a href="https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-choice-state.html">AWS Step Functions Choice State documentation</a></p>
 <p>Finally, the 'Next' transition functions exactly as it does in Integrations.</p>
 <p>The Choice Rules in the Choices list are evaluated in order. The first choice that evaluates to true determines what state the playbook will be transitioned to next.</p>
-<p>The above Choice Rules checks the variable <code>$.results.Await_User_Verification.actions.value</code> to see if it is a string that's either equal to "yes" or "no". If the string is equal to "yes", the Choice state transitions to the <code>Thank_User</code> state. If it's "no", it transitions to the <code>Reassure_User</code> state. Let's go ahead and configure both states.</p>
+<p>The above Choice Rules checks the variable <code>$.results.Verify_Login_With_User.actions.value</code> to see if it is a string that's either equal to "yes" or "no". If the string is equal to "yes", the Choice state transitions to the <code>Thank_User</code> state. If it's "no", it transitions to the <code>Reassure_User</code> state. Let's go ahead and configure both states.</p>
 <p>Both <code>Thank_User</code> and <code>Reassure_User</code> will use the Socless Slack SendMessage integration to message the user based on their response. Here are their configurations:</p>
 <pre><code>    &quot;Thank_User&quot;: {
       &quot;Type&quot;: &quot;Task&quot;,
