@@ -5,7 +5,7 @@ Robust response plans are seldom linear; seasoned responders expect their action
 
 Start by removing the `Post_Update_To_Bat_Signals` state from the investigate_login Playbook. Delete both the state name and configuration object.
 
-Then, change the `Next` transition of the `Await_User_Verification` state to `Did_User_Login`. `Did_User_Login` will be the name of our `Choice` state.
+Then, change the `Next` transition of the `Verify_Login_With_User` state to `Did_User_Login`. `Did_User_Login` will be the name of our `Choice` state.
 
 Configure `Did_User_Login` as shown below. We'll talk through the config in a moment
 
@@ -14,13 +14,13 @@ Configure `Did_User_Login` as shown below. We'll talk through the config in a mo
       "Type": "Choice",
       "Choices": [
         {
-          "Variable": "$.results.Await_User_Verification.actions.value",
-          "StringEquals": "yes",
+          "Variable": "$.results.Verify_Login_With_User.actions.value",
+          "StringEquals": "true",
           "Next": "Thank_User"
         },
         {
-          "Variable": "$.results.Await_User_Verification.actions.value",
-          "StringEquals": "no",
+          "Variable": "$.results.Verify_Login_With_User.actions.value",
+          "StringEquals": "false",
           "Next": "Reassure_User"
         }
       ]
@@ -37,7 +37,7 @@ Finally, the 'Next' transition functions exactly as it does in Integrations.
 
 The Choice Rules in the Choices list are evaluated in order. The first choice that evaluates to true determines what state the playbook will be transitioned to next.
 
-The above Choice Rules checks the variable `$.results.Await_User_Verification.actions.value` to see if it is a string that's either equal to "yes" or "no". If the string is equal to "yes", the Choice state transitions to the `Thank_User` state. If it's "no", it transitions to the `Reassure_User` state. Let's go ahead and configure both states.
+The above Choice Rules checks the variable `$.results.Verify_Login_With_User.actions.value` to see if it is a string that's either equal to "yes" or "no". If the string is equal to "yes", the Choice state transitions to the `Thank_User` state. If it's "no", it transitions to the `Reassure_User` state. Let's go ahead and configure both states.
 
 Both `Thank_User` and `Reassure_User` will use the Socless Slack SendMessage integration to message the user based on their response. Here are their configurations:
 
