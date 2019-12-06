@@ -11,25 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License
-from socless import socless_bootstrap
-from socless.utils import gen_id
+from socless import socless_bootstrap, gen_id, save_to_s3
 from datetime import datetime
 import boto3
 import botocore
 import json
 import os
-
-
-def save_to_s3(file_name, log_object, bucket_name):
-    status = ''
-    s3 = boto3.resource('s3')
-    try:
-        s3.Bucket(bucket_name).put_object(Key=file_name,Body=json.dumps(log_object))
-        status = 'Success'
-    except botocore.exceptions.ClientError as e:
-        raise Exception("Failed to store the log file to S3:\n", e)
-        status = 'Fail'
-    return { "status" : status }
 
 
 def lambda_handler(event,context):
@@ -78,6 +65,6 @@ def lambda_handler(event,context):
             "findings": findings
         }
 
-        return save_to_s3(file_id, log, bucket_name)
+        return save_to_s3(file_id, log, bucket_name, False)
 
     return socless_bootstrap(event,context,handle_state, include_event=True)
