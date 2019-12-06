@@ -14,7 +14,6 @@
 from socless import socless_bootstrap, gen_id, save_to_s3
 from datetime import datetime
 import boto3
-import botocore
 import json
 import os
 
