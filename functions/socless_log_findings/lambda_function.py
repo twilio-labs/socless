@@ -11,20 +11,25 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License
-from socless import *
+from socless import socless_bootstrap, gen_id, save_to_s3
 from datetime import datetime
 import boto3
 import json
 import os
 
+
 def lambda_handler(event,context):
+
+    # Nest handle_state inside lambda_handler to access raw context object
     def handle_state(event_context, findings):
         """
-        create a log file and upload it to SOCless logging bucket
+        Create a log file and upload it to SOCless logging bucket.
 
         Args:
             findings (obj): The findings to be logged, and it can be any variable type that's JSON serializable
-            bucket_name (str): The name of the bucket where you want to upload logs to
+
+        Env:
+            SOCLESS_Logs (str): The name of the bucket where you want to upload logs to
 
         Returns:
             A dict containing the file_id (S3 Object path) and vault_id (Socless logging bucket
@@ -58,5 +63,7 @@ def lambda_handler(event,context):
             "event_payload": event_payload,
             "findings": findings
         }
+
         return save_to_s3(file_id, log, bucket_name, False)
+
     return socless_bootstrap(event,context,handle_state, include_event=True)
