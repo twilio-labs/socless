@@ -18,15 +18,17 @@ import json
 import os
 
 
-def lambda_handler(event,context):
+def lambda_handler(event, context):
 
     # Nest handle_state inside lambda_handler to access raw context object
-    def handle_state(event_context, findings):
+    def handle_state(event_context: dict, investigation_escalated: bool, findings: str, metadata: dict):
         """
         Create a log file and upload it to SOCless logging bucket.
 
         Args:
-            findings (obj): The findings to be logged, and it can be any variable type that's JSON serializable
+            investigation_escalated (bool) : Did the investigation require handoff to a human in order to complete?
+            findings (str): The investigation's findings or outcome state.
+            metadata (obj) Any additional info for logging. Any variable type that's JSON serializable
 
         Env:
             SOCLESS_Logs (str): The name of the bucket where you want to upload logs to
@@ -61,7 +63,9 @@ def lambda_handler(event,context):
             "investigation_id": investigation_id,
             "event_type": event_type,
             "event_payload": event_payload,
-            "findings": findings
+            "findings" : findings,
+            "investigation_escalated" : investigation_escalated,
+            "metadata" : metadata
         }
 
         return save_to_s3(file_id, log, bucket_name, False)
