@@ -11,8 +11,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License
-from socless import socless_bootstrap, gen_id, save_to_s3
+from socless import socless_bootstrap, gen_id, save_to_s3, socless_template_string
 from datetime import datetime
+import urllib.parse
 import boto3
 import json
 import os
@@ -63,10 +64,16 @@ def lambda_handler(event, context):
             "investigation_id": investigation_id,
             "event_type": event_type,
             "event_payload": event_payload,
-            "findings" : findings,
             "investigation_escalated" : investigation_escalated,
             "metadata" : metadata
         }
+
+        try:
+            findings = socless_template_string(urllib.parse.unquote(findings),context)
+        except Exception as e:
+            print(f'unable to parse socless_template_string. Error: {e}. Findings: {findings}')
+        
+        log['findings'] = findings
 
         return save_to_s3(file_id, log, bucket_name, False)
 
