@@ -22,7 +22,7 @@ import os
 def lambda_handler(event, context):
 
     # Nest handle_state inside lambda_handler to access raw context object
-    def handle_state(event_context: dict, investigation_escalated: bool, findings: str, metadata: dict):
+    def handle_state(event_context: dict, investigation_escalated: bool, findings: str, metadata: dict = {}):
         """
         Create a log file and upload it to SOCless logging bucket.
 
