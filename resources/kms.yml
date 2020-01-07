@@ -52,6 +52,12 @@ Resources:
             Resource: "*"
 
 
+  SoclessLambdaKmsKeyAlias:
+    Type: AWS::KMS::Alias
+    Properties:
+      AliasName: alias/socless/lambdaKmsKey
+      TargetKeyId:
+        Ref: SoclessLambdaKmsKey
 # Outputs
 Outputs:
   # Lambda KMS Key ARN
@@ -59,3 +65,8 @@ Outputs:
     Description: ID of KMS Key for encrypting and decrypting lambda environment variables
     Value:
       Ref: SoclessLambdaKmsKey
+
+  LambdaKmsKeyAlias:
+    Description: Alias for the Lambda KMS Key
+    Value:
+      Ref: SoclessLambdaKmsKeyAlias
