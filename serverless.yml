@@ -32,7 +32,8 @@ custom:
   localstack:
     stages:
       - local
-    autostart: true
+    host: http://localstackcontainer
+    # autostart: true
   pkgPyFuncs:
     buildDir: build
     globalRequirements:
