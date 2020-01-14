@@ -2,6 +2,7 @@
   "name": "socless",
   "config": {
     "aws_profile": "default",
+    "local": "--stage local --region us-west-1",
     "dev": "--stage dev --region us-west-2",
     "prod": "--stage prod --region us-east-1",
     "sandbox": "--stage sandbox --region us-west-1"
@@ -11,6 +12,7 @@
   "main": "index.js",
   "scripts": {
     "test": "serverless --version",
+    "local": "serverless deploy $npm_package_config_local --aws-profile $npm_package_config_aws_profile --verbose",
     "dev": "serverless deploy $npm_package_config_dev --aws-profile $npm_package_config_aws_profile --verbose",
     "prod": "serverless deploy $npm_package_config_prod --aws-profile $npm_package_config_aws_profile --verbose",
     "sandbox": "serverless deploy $npm_package_config_sandbox --aws-profile $npm_package_config_aws_profile --verbose"
@@ -29,6 +31,7 @@
   "devDependencies": {},
   "dependencies": {
     "serverless": "1.50.0",
+    "serverless-localstack": "^0.4.24",
     "serverless-package-python-functions": "^0.5.0"
   }
 }

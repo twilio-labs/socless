@@ -19,6 +19,7 @@ share/python-wheels/
 .installed.cfg
 *.egg
 .DS_Store
+.vscode
 MANIFEST
 
 #Pip

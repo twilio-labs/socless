@@ -24,10 +24,15 @@ provider:
       - Ref: SoclessPrivateFunctionSubnet
 
 plugins:
+  - serverless-localstack
   - serverless-package-python-functions
 
 
 custom:
+  localstack:
+    stages:
+      - local
+    autostart: true
   pkgPyFuncs:
     buildDir: build
     globalRequirements:
