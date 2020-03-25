@@ -33,7 +33,7 @@ To begin, change out of socless directory at your command-line (if you’re stil
 Next, run the commands below to download the `socless-integrations-template` which contains the pre-configurations we need for developing our Integration
 
 ```
-git clone git@github.com:twilio/socless-integrations-template.git socless-tutorial
+git clone git@github.com:twilio-labs/socless-integrations-template.git socless-tutorial
 cd socless-tutorial
 ./setup
 virtualenv --python=python3.7 venv
