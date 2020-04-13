@@ -30,6 +30,7 @@ plugins:
 custom:
   pkgPyFuncs:
     buildDir: build
+    abortOnPackagingErrors: true
     globalRequirements:
       - ./functions/requirements.txt
 
