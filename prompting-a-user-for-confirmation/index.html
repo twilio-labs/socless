@@ -693,14 +693,14 @@
     }
 </code></pre>
 
-<p><code>Post_Update_To_Bat_Signals</code> uses the Socless Slack <code>SendMessage</code> integration to send a message to the channel. This <code>SendMessage</code> integration is identical to the one we created in the <a href="/your-second-integration-sending-a-slack-Message">Getting Started tutorial</a>. We pass it the #bat-signals channel and the templatized message to send. Pay attention to the <code>{results.Verify_Login_With_User.actions.value}</code> variable in the message template. When a SOCless Slack message button is pushed, the result is returned in a dictionary that contains, amongst other things, information about what button was pushed. The information is stored at <code>*.actions.value</code> and is the string <code>"true"</code> if <code>yes</code> was pressed, or <code>"false"</code> if <code>no</code> was pressed. In the next tutorial, we'll learn how to use that information to guide the execution of our workflow.</p>
+<p><code>Post_Update_To_Bat_Signals</code> uses the Socless Slack <code>SendMessage</code> integration to send a message to the channel. This <code>SendMessage</code> integration is identical to the one we created in the <a href="your-second-integration-sending-a-slack-Message.md">Getting Started tutorial</a>. We pass it the #bat-signals channel and the templatized message to send. Pay attention to the <code>{results.Verify_Login_With_User.actions.value}</code> variable in the message template. When a SOCless Slack message button is pushed, the result is returned in a dictionary that contains, amongst other things, information about what button was pushed. The information is stored at <code>*.actions.value</code> and is the string <code>"true"</code> if <code>yes</code> was pressed, or <code>"false"</code> if <code>no</code> was pressed. In the next tutorial, we'll learn how to use that information to guide the execution of our workflow.</p>
 <p>For now, let's test our updated playbook to see how it works.</p>
 <h2 id="testing-our-updates">Testing our updates</h2>
 <p>Since our playbook has already been listed in our <code>socless-playbooks</code> serverless.yml, we simply need to redeploy <code>socless-playbooks</code> to publish our updates. Do so by running the below command. Be sure to change <code>dev</code> to match the environment you're deploying to (for our tutorials, it should be dev)</p>
 <pre><code>npm run dev
 </code></pre>
 
-<p>Next, let's send an alert to the <a href="/your-first-endpoint">Event Endpoint</a> from our Getting Started Tutorial.
+<p>Next, let's send an alert to the <a href="../your-first-endpoint/">Event Endpoint</a> from our Getting Started Tutorial.
 The alert payload is below:</p>
 <pre><code>{
   &quot;alert_name&quot;: &quot;Suspicious Login Detected&quot;,

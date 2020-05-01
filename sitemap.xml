@@ -1,99 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url>
      <loc>https://twilio-labs.github.io/socless/</loc>
-     <lastmod>2020-03-25</lastmod>
+     <lastmod>2020-04-30</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://twilio-labs.github.io/socless/deploying-socless/</loc>
-     <lastmod>2020-03-25</lastmod>
+     <lastmod>2020-04-30</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://twilio-labs.github.io/socless/key-concepts-and-terms/</loc>
-     <lastmod>2020-03-25</lastmod>
+     <lastmod>2020-04-30</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://twilio-labs.github.io/socless/getting-started/</loc>
-     <lastmod>2020-03-25</lastmod>
+     <lastmod>2020-04-30</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://twilio-labs.github.io/socless/your-first-integration-geolocating-an-ip/</loc>
-     <lastmod>2020-03-25</lastmod>
+     <lastmod>2020-04-30</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://twilio-labs.github.io/socless/your-second-integration-sending-a-slack-message/</loc>
-     <lastmod>2020-03-25</lastmod>
+     <lastmod>2020-04-30</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://twilio-labs.github.io/socless/your-first-playbook/</loc>
-     <lastmod>2020-03-25</lastmod>
+     <lastmod>2020-04-30</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://twilio-labs.github.io/socless/your-first-endpoint/</loc>
-     <lastmod>2020-03-25</lastmod>
+     <lastmod>2020-04-30</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://twilio-labs.github.io/socless/test-your-first-playbook/</loc>
-     <lastmod>2020-03-25</lastmod>
+     <lastmod>2020-04-30</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://twilio-labs.github.io/socless/tutorial-interacting-with-humans-via-slack/</loc>
-     <lastmod>2020-03-25</lastmod>
+     <lastmod>2020-04-30</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://twilio-labs.github.io/socless/deploy-socless-slack/</loc>
-     <lastmod>2020-03-25</lastmod>
+     <lastmod>2020-04-30</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://twilio-labs.github.io/socless/human-interaction-overview/</loc>
-     <lastmod>2020-03-25</lastmod>
+     <lastmod>2020-04-30</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://twilio-labs.github.io/socless/prompting-a-user-for-confirmation/</loc>
-     <lastmod>2020-03-25</lastmod>
+     <lastmod>2020-04-30</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://twilio-labs.github.io/socless/making-choices-in-playbooks/</loc>
-     <lastmod>2020-03-25</lastmod>
+     <lastmod>2020-04-30</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://twilio-labs.github.io/socless/collect-information-using-a-slack-dialog/</loc>
-     <lastmod>2020-03-25</lastmod>
+     <lastmod>2020-04-30</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://twilio-labs.github.io/socless/socless-and-serverless/</loc>
-     <lastmod>2020-03-25</lastmod>
+     <lastmod>2020-04-30</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://twilio-labs.github.io/socless/parameter-references-and-template-variables/</loc>
-     <lastmod>2020-03-25</lastmod>
+     <lastmod>2020-04-30</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://twilio-labs.github.io/socless/human-interaction-architecture/</loc>
-     <lastmod>2020-03-25</lastmod>
+     <lastmod>2020-04-30</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://twilio-labs.github.io/socless/state-management-in-socless/</loc>
-     <lastmod>2020-03-25</lastmod>
+     <lastmod>2020-04-30</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://twilio-labs.github.io/socless/socless-vs-stock-stepfunctions/</loc>
-     <lastmod>2020-03-25</lastmod>
+     <lastmod>2020-04-30</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://twilio-labs.github.io/socless/betterments-list/</loc>
-     <lastmod>2020-03-25</lastmod>
+     <lastmod>2020-04-30</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://twilio-labs.github.io/socless/betterment-template/</loc>
-     <lastmod>2020-03-25</lastmod>
+     <lastmod>2020-04-30</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://twilio-labs.github.io/socless/faqs/</loc>
-     <lastmod>2020-03-25</lastmod>
+     <lastmod>2020-04-30</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>https://twilio-labs.github.io/socless/about/</loc>
-     <lastmod>2020-03-25</lastmod>
+     <lastmod>2020-04-30</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>

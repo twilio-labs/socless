@@ -597,7 +597,7 @@
                   <h1>Collect Information Using a Slack Dialog</h1>
                 
                 <p>For the final part of our tutorial, let's learn to trigger a <a href="https://api.slack.com/dialogs">Slack Dialog</a>. Slack Dialogs allow humans to provide detailed information to a playbook.</p>
-<p>The Socless Slack integration for sending dialogs is called SendDialog. Like PromptForConfirmation, it relies on Socless' human interaction workflow as well, which, as we learned, means it needs to be followed by an AwaitMessageResponseActivity state. In addition, Slack Dialogs have lifecycle requirements that we'll learn about in this tutorial.</p>
+<p>The Socless Slack integration for sending dialogs is called SendDialog. Like PromptForConfirmation, it relies on Socless' human interaction workflow. In addition, Slack Dialogs have lifecycle requirements that we'll learn about in this tutorial.</p>
 <p>The lifecycle for working with a Slack Dialog on any platform is:</p>
 <ul>
 <li>Slack User responds to an interactive message (e.g. button press) or uses a slash command. This generates a trigger_id that is valid for 3 seconds</li>
@@ -617,11 +617,10 @@
 <p>Start by reconfiguring the <code>Did_User_Login</code> Choice state to transition <code>Request_More_Info</code> instead of <code>Reassure_User</code> when a user responds "no" to our prompt for login verification. Don't delete the <code>Reassure_User</code> state, however. We'll still need to reassure the user that help is one the way after we collect more information.</p>
 <p>Next, Configure <code>Request_More_Info</code> to use our SendDialog integration to request more information as shown below. You can add the configuration anywhere in the States object. Order of states in the States object doesn't matter. All that matters is that transitions are configured correctly.</p>
 <pre><code>    &quot;Request_More_Info&quot;: {
-      &quot;Type&quot;: &quot;Task&quot;,
+      &quot;Type&quot;: &quot;Interaction&quot;,
       &quot;Resource&quot;: &quot;${{self:custom.slack.SendDialog}}&quot;,
       &quot;Parameters&quot;: {
-        &quot;receiver&quot;: &quot;Await_Additional_Info&quot;,
-        &quot;trigger_id&quot;: &quot;$.results.Await_User_Verification.trigger_id&quot;,
+        &quot;trigger_id&quot;: &quot;$.results.Verify_Login_With_User.trigger_id&quot;,
         &quot;title&quot;: &quot;Tell Us More&quot;,
         &quot;elements&quot;: [
           {
@@ -633,27 +632,22 @@
           }
         ]
       },
-      &quot;Next&quot;: &quot;Await_Additional_Info&quot;
-    },
-    &quot;Await_Additional_Info&quot;: {
-      &quot;Type&quot;: &quot;Task&quot;,
-      &quot;Resource&quot;: &quot;${{self:custom.socless.AwaitMessageResponseActivity}}&quot;,
       &quot;Next&quot;: &quot;Did_User_Submit_Dialog&quot;
     }
 </code></pre>
 
-<p>SendDialog is configured to follow the Human Interaction Workflow. Pay attention to the parameters passed, specifically trigger_id and elements. trigger_id is sourced from Await_User_Verification -- the state that receives our user's response to the button press. <code>elements</code> is built according to Slack's documentation on <a href="https://api.slack.com/dialogs#elements">authoring Dialog elements</a>. Be sure to review that documentation to familiarize yourself with all available Slack Dialog elements. Finally, the state transitions to Await_Additional_Info which will receive the response from the dialog.</p>
+<p>SendDialog is configured as an Interaction state. Pay attention to the parameters passed, specifically trigger_id and elements. trigger_id is sourced from Verify_Login_With_User -- the state that receives our user's response to the button press. <code>elements</code> is built according to Slack's documentation on <a href="https://api.slack.com/dialogs#elements">authoring Dialog elements</a>. Be sure to review that documentation to familiarize yourself with all available Slack Dialog elements.</p>
 <p>The above configuration handles sending a dialog and receiving the response. However, since the response may either be a submission or cancellation, we need a choice state to examine the response and guide our execution. That's what <code>Did_User_Submit_Dialog</code> will do. Let's configure that choice state as shown below:</p>
 <pre><code>&quot;Did_User_Submit_Dialog&quot;: {
       &quot;Type&quot;: &quot;Choice&quot;,
       &quot;Choices&quot;: [
         {
-          &quot;Variable&quot;: &quot;$.results.Await_Additional_Info.type&quot;,
+          &quot;Variable&quot;: &quot;$.results.Request_More_Info.type&quot;,
           &quot;StringEquals&quot;: &quot;dialog_submission&quot;,
           &quot;Next&quot;: &quot;Reassure_User&quot;
         },
         {
-          &quot;Variable&quot;: &quot;$.results.Await_Additional_Info.type&quot;,
+          &quot;Variable&quot;: &quot;$.results.Request_More_Info.type&quot;,
           &quot;StringEquals&quot;: &quot;dialog_cancellation&quot;,
           &quot;Next&quot;: &quot;Update_Bat_Signals_Channel&quot;
         }
@@ -661,7 +655,7 @@
     }
 </code></pre>
 
-<p>The state checks the data at <code>$.results.Await_Additional_Info.type</code> to determine what action was taken on the dialog i.e. dialog_submission or dialog_cancellation. If the dialog was submitted, it transitions to <code>Reassure_User</code> which is already configured in our playbook. If the dialog was cancelled, it transitions to <code>Update_Bat_Signals_Channel</code>. Let's configure that state as shown below:</p>
+<p>The state checks the data at <code>$.results.Request_More_Info.type</code> to determine what action was taken on the dialog i.e. dialog_submission or dialog_cancellation. If the dialog was submitted, it transitions to <code>Reassure_User</code> which is already configured in our playbook. If the dialog was cancelled, it transitions to <code>Update_Bat_Signals_Channel</code>. Let's configure that state as shown below:</p>
 <pre><code>&quot;Update_Bat_Signals_Channel&quot;: {
       &quot;Type&quot;: &quot;Task&quot;,
       &quot;Resource&quot;: &quot;${{self:custom.slack.SendMessage}}&quot;,
