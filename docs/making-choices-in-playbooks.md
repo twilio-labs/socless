@@ -29,7 +29,7 @@ Configure `Did_User_Login` as shown below. We'll talk through the config in a mo
 
 Since `Did_User_Login` is a Choice state, the `Type` is set to `Choice`. The primary configurable for a Choice state is a list of `Choices`. Each item in the list is an object that represents a Choice rule; a condition to be evaluated and selected if true. Each Choice Rule consists of three components: a variable --contained within our Playbook Context Object-- to evaluate, the comparison to perform, and the state to transition to if the comparison evaluates to `True`.
 
-The 'Variable' the Choice state checks against is specified using a Parameter Reference -- exactly the way you'd pass a parameter to an Integration. **However, unlike an Integration, A Choice State can only reference parameters from the immediately preceding state i.e the state that transitioned to it. You can learn more about that in the [State Management In Socless documentation](/state-management-in-socless)**. For now, the key thing to remember is that Choice states need to be configured after the state that generates the data being evaluated.
+The 'Variable' the Choice state checks against is specified using a Parameter Reference -- exactly the way you'd pass a parameter to an Integration. **However, unlike an Integration, A Choice State can only reference parameters from the immediately preceding state i.e the state that transitioned to it. You can learn more about that in the [State Management In Socless documentation](state-management-in-socless.md)**. For now, the key thing to remember is that Choice states need to be configured after the state that generates the data being evaluated.
 
 The Comparison expresses the type of check to perform against the 'Variable'. Choice Rules support different types of comparisons such as `StringEquals`, `BooleanEquals`, `NumericEquals` and more. For a full list of the supported comparisons, refer to the [AWS Step Functions Choice State documentation](https://docs.aws.amazon.com/step-functions/latest/dg/amazon-states-language-choice-state.html)
 
@@ -68,4 +68,4 @@ Once you've included these configurations in your States object, redeploy the pl
 After answering the message prompt you receive, you'll receive another Slack message that differs based on the response you selected. Be sure to test both parts in your execution.
 
 And that's it. You've successfully configured a choice state in your playbook.
-Let's move on to the next tutorial and learn how to [Collect Information using a Slack Dialog](/collect-information-using-a-slack-dialog)
+Let's move on to the next tutorial and learn how to [Collect Information using a Slack Dialog](collect-information-using-a-slack-dialog.md)
