@@ -1,4 +1,4 @@
-This tutorial expands on the [Getting Started Tutorial](/getting-started) to introduce you to more advanced playbook development concepts. Specifically, you'll learn how to:
+This tutorial expands on the [Getting Started Tutorial](getting-started.md) to introduce you to more advanced playbook development concepts. Specifically, you'll learn how to:
 
 * Interact with humans using Socless' Human Interaction Workflow and Slack Integrations
 * Add branching logic to our State Machine using Choice
@@ -19,4 +19,4 @@ The workflow for the playbook we'll create in this tutorial is shown below
 
 [diagram coming soon]
 
-Let's start by [deploying Socless Slack](/deploy-socless-slack), which contains the integrations we'll use in this tutorial
+Let's start by [deploying Socless Slack](deploy-socless-slack.md), which contains the integrations we'll use in this tutorial

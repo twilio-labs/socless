@@ -43,7 +43,7 @@ The state, which is called `Verify_Login_With_User`, uses the Lambda Integration
     }
 ```
 
-`Post_Update_To_Bat_Signals` uses the Socless Slack `SendMessage` integration to send a message to the channel. This `SendMessage` integration is identical to the one we created in the [Getting Started tutorial](/your-second-integration-sending-a-slack-Message). We pass it the #bat-signals channel and the templatized message to send. Pay attention to the `{results.Verify_Login_With_User.actions.value}` variable in the message template. When a SOCless Slack message button is pushed, the result is returned in a dictionary that contains, amongst other things, information about what button was pushed. The information is stored at `*.actions.value` and is the string `"true"` if `yes` was pressed, or `"false"` if `no` was pressed. In the next tutorial, we'll learn how to use that information to guide the execution of our workflow.
+`Post_Update_To_Bat_Signals` uses the Socless Slack `SendMessage` integration to send a message to the channel. This `SendMessage` integration is identical to the one we created in the [Getting Started tutorial](your-second-integration-sending-a-slack-Message.md). We pass it the #bat-signals channel and the templatized message to send. Pay attention to the `{results.Verify_Login_With_User.actions.value}` variable in the message template. When a SOCless Slack message button is pushed, the result is returned in a dictionary that contains, amongst other things, information about what button was pushed. The information is stored at `*.actions.value` and is the string `"true"` if `yes` was pressed, or `"false"` if `no` was pressed. In the next tutorial, we'll learn how to use that information to guide the execution of our workflow.
 
 For now, let's test our updated playbook to see how it works.
 
@@ -55,7 +55,7 @@ Since our playbook has already been listed in our `socless-playbooks` serverless
 npm run dev
 ```
 
-Next, let's send an alert to the [Event Endpoint](/your-first-endpoint) from our Getting Started Tutorial.
+Next, let's send an alert to the [Event Endpoint](your-first-endpoint.md) from our Getting Started Tutorial.
 The alert payload is below:
 
 ```
