@@ -34,7 +34,7 @@ Next, Configure `Request_More_Info` to use our SendDialog integration to request
         "title": "Tell Us More",
         "elements": [
           {
-            "label": "Where and when was your last login to your account?",
+            "label": "When was your last login?",
             "name": "additional_info",
             "optional": false,
             "placeholder": "My last log in was at ... from ....",
