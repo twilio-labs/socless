@@ -175,7 +175,7 @@ Extend your playbook.json with the configuration for our state as shown below
             "Parameters": {
                 "target": "bat-signals",
                 "target_type": "channel",
-                "message_template": "`{context.artifacts.event.details.username}` logged in from `{context.results.Geolocate_IP.country_name}` at coordinates `{context.results.Geolocate_IP.latitude}`, `{context.results.Geolocate_IP.longitude}`"
+                "message_template": "`{context.artifacts.event.details.username}` logged in from `{context.results.Geolocate_IP.country}` at coordinates `{context.results.Geolocate_IP.latitude}`, `{context.results.Geolocate_IP.longitude}`"
             },
             "End": true
         }
