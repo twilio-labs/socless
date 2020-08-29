@@ -8,7 +8,7 @@ provider:
   stage: ${{opt:stage}}
   region: ${{opt:region}}
   role:
-    Fn::GetAtt: [LambdaExecutionRole, 'Arn']
+    Fn::GetAtt: [LambdaExecutionRole, "Arn"]
   versionFunctions: false
   memorySize: 128
   timeout: 10
@@ -24,15 +24,11 @@ provider:
       - Ref: SoclessPrivateFunctionSubnet
 
 plugins:
-  - serverless-package-python-functions
-
+  - socless_integration_packager
 
 custom:
-  pkgPyFuncs:
+  soclessPackager:
     buildDir: build
-    abortOnPackagingErrors: true
-    globalRequirements:
-      - ./functions/requirements.txt
 
 resources:
   - ${{file(resources/dynamodb.yml)}} # DynamoDB Tables
@@ -99,21 +95,19 @@ functions:
     package:
       include:
         - functions/merge_parallel_output
-      artifact: ${{self:custom.pkgPyFuncs.buildDir}}/${{self:functions.MergeParallelOutput.name}}.zip
 
   SaveMessageResponseToken:
     handler: lambda_function.lambda_handler
     name: _socless_save_msg_resp_token
     description: Save the task token created when the Socless Messages Response Activity state is used
     environment:
-     AWAIT_MESSAGE_RESPONSE_ARN:
-       Ref: AwaitMessageResponseActivity
-     MESSAGE_RESPONSES_TABLE:
-       Ref: MessageResponsesTable
+      AWAIT_MESSAGE_RESPONSE_ARN:
+        Ref: AwaitMessageResponseActivity
+      MESSAGE_RESPONSES_TABLE:
+        Ref: MessageResponsesTable
     package:
-     include:
-       - functions/save_msg_resp_token
-     artifact: ${{self:custom.pkgPyFuncs.buildDir}}/${{self:functions.SaveMessageResponseToken.name}}.zip
+      include:
+        - functions/save_msg_resp_token
 
   Counter:
     handler: lambda_function.lambda_handler
@@ -122,7 +116,6 @@ functions:
     package:
       include:
         - functions/counter
-      artifact: ${{self:custom.pkgPyFuncs.buildDir}}/${{self:functions.Counter.name}}.zip
 
   SetInvestigationStatus:
     handler: lambda_function.lambda_handler
@@ -134,7 +127,6 @@ functions:
     package:
       include:
         - functions/set_investigation_status
-      artifact: ${{self:custom.pkgPyFuncs.buildDir}}/${{self:functions.SetInvestigationStatus.name}}.zip
 
   Playground:
     handler: lambda_function.lambda_handler
@@ -143,7 +135,6 @@ functions:
     package:
       include:
         - functions/playground
-      artifact: ${{self:custom.pkgPyFuncs.buildDir}}/${{self:functions.Playground.name}}.zip
 
   AddCustomMapping:
     handler: lambda_function.lambda_handler
@@ -155,7 +146,6 @@ functions:
     package:
       include:
         - functions/add_custom_mapping
-      artifact: ${{self:custom.pkgPyFuncs.buildDir}}/${{self:functions.AddCustomMapping.name}}.zip
 
   QueryCustomMapping:
     handler: lambda_function.lambda_handler
@@ -167,7 +157,6 @@ functions:
     package:
       include:
         - functions/query_custom_mapping
-      artifact: ${{self:custom.pkgPyFuncs.buildDir}}/${{self:functions.QueryCustomMapping.name}}.zip
 
   CreateEvents:
     handler: lambda_function.lambda_handler
@@ -183,7 +172,6 @@ functions:
     package:
       include:
         - functions/create_events
-      artifact: ${{self:custom.pkgPyFuncs.buildDir}}/${{self:functions.CreateEvents.name}}.zip
 
   CacheResults:
     handler: lambda_function.lambda_handler
@@ -192,7 +180,6 @@ functions:
     package:
       include:
         - functions/cache_results
-      artifact: ${{self:custom.pkgPyFuncs.buildDir}}/${{self:functions.CacheResults.name}}.zip
 
   SoclessLogFindings:
     handler: lambda_function.lambda_handler
@@ -204,4 +191,3 @@ functions:
     package:
       include:
         - functions/socless_log_findings
-      artifact: ${{self:custom.pkgPyFuncs.buildDir}}/${{self:functions.SoclessLogFindings.name}}.zip
