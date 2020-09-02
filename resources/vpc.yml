@@ -176,3 +176,8 @@ Outputs:
     Description: Elastic IP address
     Value:
       Ref: SoclessEIP
+
+  VPC:
+    Description: Socless VPC
+    Value:
+      Ref: SoclessVPC
