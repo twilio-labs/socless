@@ -41,7 +41,7 @@ Let's start the tutorial by setting up our playbooks development environment
 ## Clone Playbooks Template
 To begin, clone and set up the `socless-playbooks-template` into your high-level project directory by running the commands below
 ```
-git clone git@github.com:twilio/socless-playbooks-template.git socless-playbooks
+git clone git@github.com:twilio-labs/socless-playbooks-template.git socless-playbooks
 cd socless-playbooks
 ./setup
 ```
