@@ -3,6 +3,7 @@
   "config": {
     "aws_profile": "default",
     "dev": "--stage dev --region us-west-2",
+    "stage": "--stage stage --region us-east-2",
     "prod": "--stage prod --region us-east-1",
     "sandbox": "--stage sandbox --region us-west-1"
   },
@@ -12,6 +13,7 @@
   "scripts": {
     "test": "serverless --version",
     "dev": "serverless deploy $npm_package_config_dev --aws-profile $npm_package_config_aws_profile --verbose",
+    "stage": "serverless deploy $npm_package_config_stage --aws-profile $npm_package_config_aws_profile --verbose",
     "prod": "serverless deploy $npm_package_config_prod --aws-profile $npm_package_config_aws_profile --verbose",
     "sandbox": "serverless deploy $npm_package_config_sandbox --aws-profile $npm_package_config_aws_profile --verbose"
   },
