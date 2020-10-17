@@ -11,13 +11,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License
-from socless import *
+import socless
+
 
 def lambda_handler(event, context):
 
     #Disclaimer: having the handle_state in the lambda_handler is a quick & dirty solution to the problem of exposing the lambda 'context' object to the handle_state function
     # so that the `create_events` function can use it. There should probably be a better way to do so.
-    def handle_state(event_context,event_type,details,playbook='',dedup_keys=[],data_types={}, add_to_details={}):
+    def handle_state(event_context, event_type, details, playbook='', dedup_keys=[], data_types={}, add_to_details={}):
         """
         Creates a new event in Socless using the socless_create_events api from the socless_python library
 
@@ -31,7 +32,7 @@ def lambda_handler(event, context):
         Returns:
             A dict containing a boolean status code and, if successful, the investigation id assigned to the created event.
         """
-        execution_id = event_context.get('execution_id','n/a')
+        execution_id = event_context.get('execution_id', 'n/a')
 
         for each in details:
             each.update(add_to_details)
@@ -48,7 +49,7 @@ def lambda_handler(event, context):
             }
         }
 
-        create_events(events,context)
+        create_events(events, context)
         return {"completed": True}
 
-    return socless_bootstrap(event,context, handle_state, include_event=True)
+    return socless_bootstrap(event, context, handle_state, include_event=True)

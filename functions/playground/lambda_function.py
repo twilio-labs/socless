@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License
-from socless import *
+import socless
 
 def handle_state():
     """
@@ -20,6 +20,6 @@ def handle_state():
     return updated_count
 
 
-
-def lambda_handler(event,context):
-    return socless_bootstrap(event,context,handle_state,include_event=True)
+def lambda_handler(event, context):
+    """Lambda function entry point"""
+    return socless_bootstrap(event, context, handle_state, include_event=True)

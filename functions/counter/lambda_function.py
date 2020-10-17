@@ -14,7 +14,8 @@
 from socless import *
 import operator
 
-def handle_state(context,state_name,start,delta,direction='up'):
+
+def handle_state(context, state_name, start, delta, direction='up'):
     """
     Simple Counter
     Context: Socless Input object
@@ -35,17 +36,19 @@ def handle_state(context,state_name,start,delta,direction='up'):
     start = int(start)
     delta = int(delta)
     updated_count = {}
-    current_count = context.get('results',{}).get(state_name,{})
+    current_count = context.get('results', {}).get(state_name, {})
     if current_count:
         current_value = current_count['current_value']
         updated_count['previous_value'] = current_value
-        updated_count['current_value'] = DIRECTIONS_MAP[direction](current_value, delta)
+        updated_count['current_value'] = DIRECTIONS_MAP[direction](
+            current_value, delta)
     else:
         updated_count['previous_value'] = start
-        updated_count['current_value'] = DIRECTIONS_MAP[direction](start, delta)
+        updated_count['current_value'] = DIRECTIONS_MAP[direction](
+            start, delta)
     return updated_count
 
 
-
-def lambda_handler(event,context):
-    return socless_bootstrap(event,context,handle_state,include_event=True)
+def lambda_handler(event, context):
+    """Lambda function entry point"""
+    return socless_bootstrap(event, context, handle_state, include_event=True)
