@@ -30,7 +30,7 @@
   "license": "ISC",
   "devDependencies": {},
   "dependencies": {
-    "serverless": "^1.80.0",
+    "serverless": "^2.0.0",
     "socless_integration_packager": "git+https://github.com/twilio-labs/socless_integration_packager.git#1.0.0"
   }
 }
