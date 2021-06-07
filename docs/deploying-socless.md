@@ -1,7 +1,7 @@
 # Introduction
-Socless is deployed using the [Serverless Framework](https://serverless.com).
+SOCless is deployed using the [Serverless Framework](https://serverless.com).
 
-Socless uses the Serverless Framework as its orchestration technology. All the core infrastructure that powers Socless is deployed via a single Serverless Framework application. Additional functionality (Playbooks, Integrations, Endpoints, etc) are deployed via their own Serverless Framework applications. This means that Socless is designed to be modular and is deployed as such. In this documentation, we'll deploy Socless' core infrastructure. Later documentation will cover the deployment of additional Socless modules like integrations.
+SOCless uses the Serverless Framework as its orchestration technology. All the core infrastructure that powers SOCless is deployed via a single Serverless Framework application. Additional functionality (Playbooks, Integrations, Endpoints, etc) are deployed via their own Serverless Framework applications. This means that SOCless is designed to be modular and is deployed as such. In this documentation, we'll deploy SOCless' core infrastructure. Later documentation will cover the deployment of additional SOCless modules like integrations.
 
 Pre-requisites
 
@@ -15,7 +15,7 @@ Pre-requisites
 Once the pre-requisites have been successfully set up, move to the next section
 
 # Clone socless
-Start by cloning the Socless repository to any directory on your local machine that you've designated for code projects using the command below:
+Start by cloning the SOCless repository to any directory on your local machine that you've designated for code projects using the command below:
 
 ```
 git clone git@github.com:twilio-labs/socless.git
@@ -47,7 +47,7 @@ Open the package.json file contained in the cloned folder. In the `config` objec
 ```
 # (Optional) Modify Development/Production environment Config
 
-By default, Socless supports a development and production environment. The development environment, (dev) is set to AWS us-west-2 region, and the Production environment (prod) is AWS us-east-1 region. If you do not wish to change the deployment regions, you can skip to Deploy section.
+By default, SOCless supports a development and production environment. The development environment, (dev) is set to AWS us-west-2 region, and the Production environment (prod) is AWS us-east-1 region. If you do not wish to change the deployment regions, you can skip to Deploy section.
 
 If you want to use different regions for dev/prod, change the region specified for them in the config object. For example, the below config uses us-east-2 for dev and us-west-2 for prod.
 
@@ -70,10 +70,10 @@ Run the following command within socless directory to deploy socless prod enviro
 ```
 npm run prod
 ```
-Both commands are used to deploy *AND redeploy* Socless to the dev and prod environments respectively after changes have been made.
+Both commands are used to deploy *AND redeploy* SOCless to the dev and prod environments respectively after changes have been made.
 
 # Review the Deployment Output
 The Serverless Framework deploys applications to AWS using the AWS Cloudformation service. Each Serverless application is deployed as a CloudFormation Stack.
-If the Socless deployment succeeded, your terminal should show Cloudformation Stack Outputs of the deployed resources. Additionally, if you log into the AWS console and navigate to the Cloudformation service in the region you deployed Socless to, you should find a Cloudformation stack named `socless-
+If the SOCless deployment succeeded, your terminal should show Cloudformation Stack Outputs of the deployed resources. Additionally, if you log into the AWS console and navigate to the Cloudformation service in the region you deployed SOCless to, you should find a Cloudformation stack named `socless-
 
-With Socless successfully deployed, you're ready to write [your first playbook](getting-started.md)
+With SOCless successfully deployed, you're ready to write [your first playbook](tutorials/quick-start/introduction.md)

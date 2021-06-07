@@ -11,10 +11,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License
-from socless import *
+from socless import socless_bootstrap
 import operator
 
-def handle_state(context,state_name,start,delta,direction='up'):
+
+def handle_state(context, state_name, start, delta, direction="up"):
     """
     Simple Counter
     Context: Socless Input object
@@ -23,29 +24,25 @@ def handle_state(context,state_name,start,delta,direction='up'):
     delta: Amount to change counter by
     direction: Direction of the change
     """
-    DIRECTIONS_MAP = {
-        "up": operator.add,
-        "down": operator.sub
-    }
+    DIRECTIONS_MAP = {"up": operator.add, "down": operator.sub}
     if direction not in DIRECTIONS_MAP:
         return {
             "status": "Error",
-            "message": "Unsupported direction supplied to counter"
+            "message": "Unsupported direction supplied to counter",
         }
     start = int(start)
     delta = int(delta)
     updated_count = {}
-    current_count = context.get('results',{}).get(state_name,{})
+    current_count = context.get("results", {}).get(state_name, {})
     if current_count:
-        current_value = current_count['current_value']
-        updated_count['previous_value'] = current_value
-        updated_count['current_value'] = DIRECTIONS_MAP[direction](current_value, delta)
+        current_value = current_count["current_value"]
+        updated_count["previous_value"] = current_value
+        updated_count["current_value"] = DIRECTIONS_MAP[direction](current_value, delta)
     else:
-        updated_count['previous_value'] = start
-        updated_count['current_value'] = DIRECTIONS_MAP[direction](start, delta)
+        updated_count["previous_value"] = start
+        updated_count["current_value"] = DIRECTIONS_MAP[direction](start, delta)
     return updated_count
 
 
-
-def lambda_handler(event,context):
-    return socless_bootstrap(event,context,handle_state,include_event=True)
+def lambda_handler(event, context):
+    return socless_bootstrap(event, context, handle_state, include_event=True)

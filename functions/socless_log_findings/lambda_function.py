@@ -14,15 +14,18 @@
 from socless import socless_bootstrap, gen_id, save_to_s3, socless_template_string
 from datetime import datetime
 import urllib.parse
-import boto3
-import json
 import os
 
 
 def lambda_handler(event, context):
 
     # Nest handle_state inside lambda_handler to access raw context object
-    def handle_state(event_context: dict, investigation_escalated: bool, findings: str, metadata: dict = {}):
+    def handle_state(
+        event_context: dict,
+        investigation_escalated: bool,
+        findings: str,
+        metadata: dict = {},
+    ):
         """
         Create a log file and upload it to SOCless logging bucket.
 
@@ -43,19 +46,23 @@ def lambda_handler(event, context):
         log_source = context.invoked_function_arn
         aws_region = log_source.split(":")[3]
         aws_account = log_source.split(":")[4]
-        event_type = event_context['artifacts']['event']['event_type']
-        playbook_name = event_context['artifacts']['event']['playbook']
-        execution_id = event_context['execution_id']
-        execution_arn = "arn:aws:states:{}:{}:execution:{}:{}".format(aws_region, aws_account, playbook_name, execution_id)
-        investigation_id = event_context['artifacts']['event']['investigation_id']
-        event_payload = event_context['artifacts']['event']['details']
+        event_type = event_context["artifacts"]["event"]["event_type"]
+        playbook_name = event_context["artifacts"]["event"]["playbook"]
+        execution_id = event_context["execution_id"]
+        execution_arn = "arn:aws:states:{}:{}:execution:{}:{}".format(
+            aws_region, aws_account, playbook_name, execution_id
+        )
+        investigation_id = event_context["artifacts"]["event"]["investigation_id"]
+        event_payload = event_context["artifacts"]["event"]["details"]
         utc_time = datetime.utcnow()
         utc_time_iso = utc_time.isoformat() + "Z"
         year = utc_time.year
         month = utc_time.month
         day = utc_time.day
         uuid = gen_id()
-        file_id = "{}/{}/{}/{}/{}/{}.json".format(log_type, year, month, day, playbook_name, uuid)
+        file_id = "{}/{}/{}/{}/{}/{}.json".format(
+            log_type, year, month, day, playbook_name, uuid
+        )
         log = {
             "log_type": log_type,
             "log_source": log_source,
@@ -64,17 +71,22 @@ def lambda_handler(event, context):
             "investigation_id": investigation_id,
             "event_type": event_type,
             "event_payload": event_payload,
-            "investigation_escalated" : investigation_escalated,
-            "metadata" : metadata
+            "investigation_escalated": investigation_escalated,
+            "metadata": metadata,
         }
 
         try:
-            findings = socless_template_string(urllib.parse.unquote(findings),context)
+            findings = socless_template_string(
+                urllib.parse.unquote(findings), event_context
+            )
         except Exception as e:
-            print(f'unable to parse socless_template_string. Error: {e}. Findings: {findings}')
-        
-        log['findings'] = findings
+            print(
+                f"unable to parse socless_template_string. Error: {e}. Findings: {findings}"
+            )
+            raise
+
+        log["findings"] = findings
 
         return save_to_s3(file_id, log, bucket_name, False)
 
-    return socless_bootstrap(event,context,handle_state, include_event=True)
+    return socless_bootstrap(event, context, handle_state, include_event=True)

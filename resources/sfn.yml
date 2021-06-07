@@ -1,12 +1,14 @@
 # AWS Step Function Resources
 Resources:
   # Message Responses Activity
+  #TODO: AwaitMessageResponseActivity as it it now deprecated infrastructure
   AwaitMessageResponseActivity:
     Type: AWS::StepFunctions::Activity
     Properties:
       Name: _socless_outbound_message_response
 
   # Fetch Outbound Message Responses Task-Token Playbook
+  # TODO: Remove SaveMessageResponseTaskToken as it is now deprecated infrastructure
   SaveMessageResponseTaskToken:
     Type: AWS::StepFunctions::StateMachine
     DependsOn: StatesExecutionRole
