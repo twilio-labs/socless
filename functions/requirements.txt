@@ -1,2 +1,2 @@
 # Global Requirements file
-git+https://github.com/twilio-labs/socless_python.git#egg=socless
+git+https://github.com/twilio-labs/socless_python.git@1.5.0#egg=socless

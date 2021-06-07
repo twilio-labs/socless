@@ -1,0 +1,11 @@
+Resources:
+  PlaybooksLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: ${{self:custom.playbooksLogGroupName}}
+
+Outputs:
+  PlaybooksLogGroup:
+    Description: Cloudwatch Log Group where SOCless playbooks send their logs
+    Value:
+      Fn::GetAtt: [PlaybooksLogGroup, "Arn"]

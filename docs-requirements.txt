@@ -1,2 +1,7 @@
 mkdocs
 mkdocs-material
+mkdocstrings
+mkdocs-macros-plugin
+-r functions/requirements.txt
+-r functions/http_request/requirements.txt
+boto3
