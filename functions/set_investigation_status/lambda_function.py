@@ -12,47 +12,39 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 import boto3, os
-from socless import socless_bootstrap
+from socless import *
 from botocore.exceptions import ClientError
 
 
-EVENTS_TABLE = os.environ.get("SOCLESS_EVENTS_TABLE")
+EVENTS_TABLE = os.environ.get('SOCLESS_EVENTS_TABLE')
 
-
-def handle_state(investigation_id, status):
+def handle_state(investigation_id,status):
     """
     Set the Investigation ID to status.
     This is applied to the original incident
     """
-    VALID_STATUSES = ["open", "closed", "active", "whitelisted"]
+    VALID_STATUSES = ['open','closed','active','whitelisted']
     if not investigation_id:
         return {"result": "failure", "message": "No investigation_id provided"}
     if status not in VALID_STATUSES:
-        return {
-            "result": "failure",
-            "message": f"Status {status} is not a valid status",
-        }
+        return {"result": "failure", "message": f"Status {status} is not a valid status"}
 
-    event_table = boto3.resource("dynamodb").Table(EVENTS_TABLE)
+    event_table = boto3.resource('dynamodb').Table(EVENTS_TABLE)
     # Investigation_id in Socless now matches the ID of the original event ''
     try:
-        _ = event_table.update_item(
-            Key={"id": investigation_id},
-            UpdateExpression="SET status_ = :status_",
-            ExpressionAttributeValues={":status_": status},
-            ConditionExpression="attribute_exists(id)",
+        update_query = event_table.update_item(
+            Key={'id':investigation_id},
+            UpdateExpression='SET status_ = :status_',
+            ExpressionAttributeValues={':status_': status},
+            ConditionExpression='attribute_exists(id)'
         )
     except ClientError as e:
-        if e.response["Error"]["Code"] == "ConditionalCheckFailedException":
-            return {
-                "result": "failure",
-                "message": f"Investigation with id {investigation_id} does not exist",
-            }
+        if e.response['Error']['Code'] == 'ConditionalCheckFailedException':
+            return { "result": "failure", "message": f"Investigation with id {investigation_id} does not exist"}
         else:
             raise
     else:
         return {"result": "success"}
 
-
-def lambda_handler(event, context):
-    return socless_bootstrap(event, context, handle_state)
+def lambda_handler(event,context):
+    return socless_bootstrap(event,context,handle_state)

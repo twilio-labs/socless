@@ -160,6 +160,7 @@ Resources:
         - Key: Name
           Value: Socless
 
+
 Outputs:
   PrivateFunctionSubnet:
     Description: Socless Private Function Subnet
@@ -175,8 +176,3 @@ Outputs:
     Description: Elastic IP address
     Value:
       Ref: SoclessEIP
-
-  VPC:
-    Description: SOCless VPC
-    Value:
-      Ref: SoclessVPC

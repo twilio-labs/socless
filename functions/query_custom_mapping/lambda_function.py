@@ -11,24 +11,20 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License
-from socless import socless_bootstrap
+from socless import *
 import boto3, os
-
 
 def handle_state(key):
     """
     Get a value from the Socless Custom Mappings Table
     """
-    custom_mappings_table = boto3.resource("dynamodb").Table(
-        os.environ.get("SOCLESS_CUSTOM_MAPPINGS_TABLE")
-    )
-    response = custom_mappings_table.get_item(Key={"key": key})
+    custom_mappings_table = boto3.resource('dynamodb').Table(os.environ.get('SOCLESS_CUSTOM_MAPPINGS_TABLE'))
+    response = custom_mappings_table.get_item(Key={ "key": key })
     item = response.get("Item", {})
     if item:
-        return {"exists": True, "mapping": item}
+        return { "exists": True, "mapping": item }
     else:
-        return {"exists": False, "mapping": {}}
+        return { "exists": False, "mapping": {} }
 
-
-def lambda_handler(event, context):
-    return socless_bootstrap(event, context, handle_state)
+def lambda_handler(event,context):
+	return socless_bootstrap(event,context,handle_state)

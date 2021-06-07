@@ -27,15 +27,6 @@ Resources:
         - arn:aws:iam::aws:policy/AmazonS3FullAccess
         - arn:aws:iam::aws:policy/AmazonSESFullAccess
         - arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess
-      Policies:
-        - PolicyName:
-            Fn::Sub: "${AWS::StackName}-aws-request-integration-policy"
-          PolicyDocument:
-            Version: "2012-10-17"
-            Statement:
-              - Effect: "Allow"
-                Action: "sts:AssumeRole"
-                Resource: "*"
 
   # AWS SFN State Machine Policy
   StatesExecutionPolicy:
@@ -47,24 +38,9 @@ Resources:
         Version: '2012-10-17'
         Statement:
           -
-            Sid: AllowLambdaAndStatesInvoke
             Effect: Allow
             Action:
               - lambda:InvokeFunction
-              - states:StartExecution
-            Resource: "*"
-          -
-            Sid: AllowWriteLogs
-            Effect: Allow
-            Action:
-              - logs:CreateLogDelivery
-              - logs:GetLogDelivery
-              - logs:UpdateLogDelivery
-              - logs:DeleteLogDelivery
-              - logs:ListLogDeliveries
-              - logs:PutResourcePolicy
-              - logs:DescribeResourcePolicies
-              - logs:DescribeLogGroups
             Resource: "*"
       Roles:
         -
@@ -83,11 +59,6 @@ Resources:
             Effect: Allow
             Principal:
               Service: states.${{self:provider.region}}.amazonaws.com
-            Action: sts:AssumeRole
-          -
-            Effect: Allow
-            Principal:
-              Service: events.amazonaws.com
             Action: sts:AssumeRole
 
 Outputs:

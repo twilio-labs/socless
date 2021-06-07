@@ -17,8 +17,8 @@ def lambda_handler(event, context):
 
     first = event[0]
     for output in event[1:]:
-        for key, value in output.items():
-            if isinstance(value, dict):
+        for key,value in list(output.items()):
+            if isinstance(value,dict):
                 first[key].update(value)
             else:
                 first[key] = value

@@ -11,8 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License
-from socless import socless_bootstrap, socless_template_string
-
+from socless import *
 
 def handle_state(execution_context, entries):
     """
@@ -27,18 +26,17 @@ def handle_state(execution_context, entries):
         A dictionary that contains the thing you want to be cached.
         {"cached": data}
     """
-    if isinstance(entries, str):
-        entries = socless_template_string(entries, execution_context)
+    if isinstance(entries,str):
+        entries = socless_template_string(entries,execution_context)
     elif isinstance(entries, dict):
         new_entries = {}
         for key, value in list(entries.items()):
-            if isinstance(value, str):
-                new_entries[key] = socless_template_string(value, execution_context)
+            if isinstance(value,str):
+                new_entries[key] = socless_template_string(value,execution_context)
             else:
                 new_entries[key] = value
         entries = new_entries
     return {"cached": entries}
 
-
-def lambda_handler(event, context):
-    return socless_bootstrap(event, context, handle_state, include_event=True)
+def lambda_handler(event,context):
+    return socless_bootstrap(event,context,handle_state, include_event=True)

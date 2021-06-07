@@ -1,6 +1,5 @@
 # Socless core infrastructure and functions
 service: socless
-unresolvedVariablesNotificationMode: error
 
 provider:
   name: aws
@@ -18,10 +17,6 @@ provider:
       Ref: SoclessVault
     SOCLESS_RESULTS_TABLE:
       Ref: ExecutionResultsTable
-    SOCLESS_DEDUP_TABLE:
-      Ref: DedupTable
-    SOCLESS_EVENTS_TABLE:
-      Ref: EventsTable
   vpc:
     securityGroupIds:
       - Fn::Sub: ${SoclessLambdaVpcSG.GroupId}
@@ -34,7 +29,6 @@ plugins:
 custom:
   soclessPackager:
     buildDir: build
-  playbooksLogGroupName: /socless/playbook-execution-logs
 
 resources:
   - ${{file(resources/dynamodb.yml)}} # DynamoDB Tables
@@ -45,7 +39,6 @@ resources:
   - ${{file(resources/vpc.yml)}} # VPC Resources
   - ${{file(resources/sg.yml)}} # Security Group resources
   - ${{file(resources/apigateway.yml)}} # API Gateway
-  - ${{file(resources/playbook_logs.yml)}} # API Gateway
   - Outputs:
       MergeParallelOutput:
         Description: Merges the output from a parallel state into a unified object
@@ -53,8 +46,7 @@ resources:
           Fn::Sub: ${MergeParallelOutputLambdaFunction.Arn}
 
       SaveMessageResponseToken:
-        Description: Save the task token created when the Socless Messages Response
-          Activity state is used
+        Description: Save the task token created when the Socless Messages Response Activity state is used
         Value:
           Fn::Sub: ${SaveMessageResponseTokenLambdaFunction.Arn}
 
@@ -83,11 +75,6 @@ resources:
         Value:
           Fn::Sub: ${CreateEventsLambdaFunction.Arn}
 
-      HTTPRequest:
-        Description: Make an http request with the Python Requests library
-        Value:
-          Fn::Sub: ${HTTPRequestLambdaFunction.Arn}
-
       CacheResults:
         Description: Cache returned results
         Value:
@@ -96,33 +83,11 @@ resources:
         Description: Generate and upload SOCless log findings to a logging bucket
         Value:
           Fn::Sub: ${SoclessLogFindingsLambdaFunction.Arn}
-      SavePlaybookExecutionLogs:
-        Description: Ships SOCless Playbook executions logs from the log group to S3
-        Value:
-          Fn::Sub: ${SavePlaybookExecutionLogsLambdaFunction.Arn}
-      AWSRequest:
-        Description: Make requests against AWS APIs
-        Value:
-          Fn::Sub: ${AWSRequestLambdaFunction.Arn}
-      
-      SetupGlobalStateForDirectInvokedPlaybook:
-        Description: Make requests against AWS APIs
-        Value:
-          Fn::Sub: ${SetupGlobalStateForDirectInvokedPlaybookLambdaFunction.Arn}
-
 
 package:
   individually: true
 
 functions:
-  HTTPRequest:
-    handler: lambda_function.lambda_handler
-    name: socless_http_request
-    description: Make an http request with the Python Requests library
-    package:
-      include:
-        - functions/http_request
-
   MergeParallelOutput:
     handler: lambda_function.lambda_handler
     name: _socless_merge_parallel_output
@@ -134,8 +99,7 @@ functions:
   SaveMessageResponseToken:
     handler: lambda_function.lambda_handler
     name: _socless_save_msg_resp_token
-    description: Save the task token created when the Socless Messages Response Activity
-      state is used
+    description: Save the task token created when the Socless Messages Response Activity state is used
     environment:
       AWAIT_MESSAGE_RESPONSE_ARN:
         Ref: AwaitMessageResponseActivity
@@ -209,16 +173,6 @@ functions:
       include:
         - functions/create_events
 
-  SetupGlobalStateForDirectInvokedPlaybook:
-    handler: lambda_function.lambda_handler
-    name: _socless_setup_global_state_for_direct_invoked_playbook
-    description: "PRIVATE USAGE FOR SOCLESS INTERNAL API: used by sls-apb to support directly invoking playbooks without create_events."
-    memorySize: 128
-    timeout: 120
-    package:
-      include:
-        - functions/_setup_global_state_for_direct_invoked_playbook
-
   CacheResults:
     handler: lambda_function.lambda_handler
     name: socless_cache_results
@@ -226,22 +180,6 @@ functions:
     package:
       include:
         - functions/cache_results
-
-  SavePlaybookExecutionLogs:
-    handler: lambda_function.lambda_handler
-    name: _socless_ship_playbook_logs
-    description: Ships SOCless Playbook executions logs from the log group to S3
-    memorySize: 1024
-    timeout: 120
-    environment:
-      SOCLESS_LOGS:
-        Ref: SoclessLogs
-    package:
-      include:
-        - functions/_ship_playbook_logs
-    events:
-      - cloudwatchLog:
-          logGroup: ${{self:custom.playbooksLogGroupName}}
 
   SoclessLogFindings:
     handler: lambda_function.lambda_handler
@@ -253,14 +191,3 @@ functions:
     package:
       include:
         - functions/socless_log_findings
-
-  AWSRequest:
-    handler: lambda_function.lambda_handler
-    name: socless_aws_request
-    description: Make requests against AWS APIs
-    environment:
-      SOCLESS_Logs:
-        Ref: SoclessLogs
-    package:
-      include:
-        - functions/aws_request

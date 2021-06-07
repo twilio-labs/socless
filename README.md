@@ -5,7 +5,7 @@ SOCless is a serverless framework built to help security teams easily automate t
 # Overview
 
 SOCless uses the AWS Step Functions and AWS Lambda services to execute user-defined workflows. The workflows, called Playbooks, are defined as JSON objects and triggered by real-time alerts from data sources or AWS CloudWatch schedules.
-
+                                             
 ![](https://twilio-labs.github.io/socless/imgs/socless-base-architecture.png)    
 
 Features
@@ -21,28 +21,3 @@ Features
 Ready? Check out the [docs!](https://twilio-labs.github.io/socless/)
 
 Join our [community Slack workspace](https://join.slack.com/t/socless/shared_invite/enQtODA3ODEzNzcwNDgxLTBiYjVjYjI4ODI4YTY5YzM4OWRlYjQ1Yzg4M2EzMGUzMGMyYThlN2U5NTI5OWIwZWE1ZTcwNjA2MjgyZDRmMjg)
-
-
-# Development Guide
-
-## Building and Redeploying the Docs
-
-SOCless documentation is contained in the docs folder and is powered by [MkDocs](https://www.mkdocs.org/) and [MkDocs Material](https://squidfunk.github.io/mkdocs-material/). The built docs are hosted on Github pages
-
-**To setup your environment for building the docs**
-
-```
-python3 -m venv venv
-. venv/bin/activate
-pip install -r docs-requirements.txt
-```
-
-**To serve the docs locally (after setup)**
-```
-mkdocs serve
-```
-
-**To deploy the docs to Github pages**
-```
-mkdocs gh-deploy
-```

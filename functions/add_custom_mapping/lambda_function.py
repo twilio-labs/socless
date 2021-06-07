@@ -11,20 +11,19 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License
-from socless import socless_bootstrap
+from socless import *
 import boto3, os
-
 
 def handle_state(key, value):
     """
     Add a key-value pair to the Socless custom mapping table
     """
-    custom_mappings_table = boto3.resource("dynamodb").Table(
-        os.environ.get("SOCLESS_CUSTOM_MAPPINGS_TABLE")
-    )
-    response = custom_mappings_table.put_item(Item={"key": key, "value": value})
+    custom_mappings_table = boto3.resource('dynamodb').Table(os.environ.get('SOCLESS_CUSTOM_MAPPINGS_TABLE'))
+    response = custom_mappings_table.put_item(Item={
+        "key": key,
+        "value": value
+    })
     return response
 
-
-def lambda_handler(event, context):
-    return socless_bootstrap(event, context, handle_state)
+def lambda_handler(event,context):
+    return socless_bootstrap(event,context,handle_state)
