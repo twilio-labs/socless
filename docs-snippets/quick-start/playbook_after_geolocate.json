@@ -1,0 +1,27 @@
+{
+	"artifacts": {
+		"event": {
+			"details": {
+				"username": "bruce.wayne",
+				"ip": "113.63.125.3"
+			}
+		}
+	},
+	"results": {
+		"Geolocate_IP": {
+			"json": {
+				"ip": "113.63.125.3",
+				"country_code": "CN",
+				"country_name": "China",
+				"region_code": "",
+				"region_name": "",
+				"city": "",
+				"zip_code": "",
+				"time_zone": "Asia/Shanghai",
+				"latitude": 34.7725,
+				"longitude": 113.7266,
+				"metro_code": 0
+			}
+		}
+	}
+}
