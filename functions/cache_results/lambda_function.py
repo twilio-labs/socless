@@ -11,10 +11,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License
+from typing import Any
 from socless import socless_bootstrap, socless_template_string
 
 
-def handle_state(execution_context, entries):
+def handle_state(execution_context, entries: Any):
     """
     This integration helps to cache, return and (optionally) re-map fields of data so that it can be used by other States. Choice states particularly benefit from this integration as
     Choice states can only refer the return results that are one step before it. This cache function can be used to pull data from earlier states not immediately preceeding the choice state so that it can be used by Choice States.

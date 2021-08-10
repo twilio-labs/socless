@@ -15,12 +15,10 @@ from socless import socless_bootstrap
 import boto3, os
 
 
-def handle_state(key):
-    """
-    Get a value from the Socless Custom Mappings Table
-    """
+def handle_state(key: str):
+    """Get a value from the Socless Custom Mappings Table."""
     custom_mappings_table = boto3.resource("dynamodb").Table(
-        os.environ.get("SOCLESS_CUSTOM_MAPPINGS_TABLE")
+        os.environ["SOCLESS_CUSTOM_MAPPINGS_TABLE"]
     )
     response = custom_mappings_table.get_item(Key={"key": key})
     item = response.get("Item", {})

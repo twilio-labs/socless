@@ -16,8 +16,8 @@ from socless import (
     SoclessEventsError,
 )
 
-
-def lambda_handler(event, _):
+# SOCLESS_INTERNAL
+def lambda_handler(event: dict, _):
     try:
         execution_id = event["execution_id"]
         playbook_name = event["playbook_name"]

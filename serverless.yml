@@ -129,7 +129,7 @@ functions:
     description: Merges the output from a Parallel state into a unified object
     package:
       include:
-        - functions/merge_parallel_output
+        - functions/_merge_parallel_output
 
   SaveMessageResponseToken:
     handler: lambda_function.lambda_handler
@@ -143,7 +143,7 @@ functions:
         Ref: MessageResponsesTable
     package:
       include:
-        - functions/save_msg_resp_token
+        - functions/_save_msg_resp_token
 
   Counter:
     handler: lambda_function.lambda_handler

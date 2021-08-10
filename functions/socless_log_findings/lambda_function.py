@@ -17,11 +17,11 @@ import urllib.parse
 import os
 
 
-def lambda_handler(event, context):
+def lambda_handler(event, ctx):
 
-    # Nest handle_state inside lambda_handler to access raw context object
+    # Nest handle_state inside lambda_handler to access raw ctx object
     def handle_state(
-        event_context: dict,
+        context: dict,
         investigation_escalated: bool,
         findings: str,
         metadata: dict = {},
@@ -43,17 +43,17 @@ def lambda_handler(event, context):
         """
         bucket_name = os.environ.get("SOCLESS_Logs")
         log_type = "findings"
-        log_source = context.invoked_function_arn
+        log_source = ctx.invoked_function_arn
         aws_region = log_source.split(":")[3]
         aws_account = log_source.split(":")[4]
-        event_type = event_context["artifacts"]["event"]["event_type"]
-        playbook_name = event_context["artifacts"]["event"]["playbook"]
-        execution_id = event_context["execution_id"]
+        event_type = context["artifacts"]["event"]["event_type"]
+        playbook_name = context["artifacts"]["event"]["playbook"]
+        execution_id = context["execution_id"]
         execution_arn = "arn:aws:states:{}:{}:execution:{}:{}".format(
             aws_region, aws_account, playbook_name, execution_id
         )
-        investigation_id = event_context["artifacts"]["event"]["investigation_id"]
-        event_payload = event_context["artifacts"]["event"]["details"]
+        investigation_id = context["artifacts"]["event"]["investigation_id"]
+        event_payload = context["artifacts"]["event"]["details"]
         utc_time = datetime.utcnow()
         utc_time_iso = utc_time.isoformat() + "Z"
         year = utc_time.year
@@ -76,9 +76,7 @@ def lambda_handler(event, context):
         }
 
         try:
-            findings = socless_template_string(
-                urllib.parse.unquote(findings), event_context
-            )
+            findings = socless_template_string(urllib.parse.unquote(findings), context)
         except Exception as e:
             print(
                 f"unable to parse socless_template_string. Error: {e}. Findings: {findings}"
@@ -89,4 +87,4 @@ def lambda_handler(event, context):
 
         return save_to_s3(file_id, log, bucket_name, False)
 
-    return socless_bootstrap(event, context, handle_state, include_event=True)
+    return socless_bootstrap(event, ctx, handle_state, include_event=True)

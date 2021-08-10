@@ -14,6 +14,7 @@
 from socless import socless_bootstrap
 
 
+# SOCLESS_INTERNAL
 def handle_state():
     """
     This function is useful for testing things

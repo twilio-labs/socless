@@ -18,6 +18,7 @@ SLACK_TABLE = os.environ.get("MESSAGE_RESPONSES_TABLE")
 AWAIT_SLACK_RESPONSE_ARN = os.environ["AWAIT_MESSAGE_RESPONSE_ARN"]
 
 
+# SOCLESS_INTERNAL
 def lambda_handler(event, context):
     # TODO implement
     stepfunctions = boto3.client("stepfunctions")
