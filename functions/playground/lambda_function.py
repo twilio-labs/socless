@@ -19,7 +19,7 @@ def handle_state(input: str = ""):
     """
     This function is useful for testing things, feel free to modify
     """
-    return input
+    return {"output": input}
 
 
 def lambda_handler(event, context):
