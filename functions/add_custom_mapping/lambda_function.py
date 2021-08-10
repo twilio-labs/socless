@@ -11,11 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License
+from typing import Any
 from socless import socless_bootstrap
 import boto3, os
 
 
-def handle_state(key, value):
+def handle_state(key: str, value: Any):
     """
     Add a key-value pair to the Socless custom mapping table
     """

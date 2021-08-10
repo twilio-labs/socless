@@ -1,0 +1,121 @@
+{
+    "Playbook": "SoclessCoreIntegrationTest",
+    "Comment": "Playbook that tests functionality of `socless` repo's functions",
+    "StartAt": "Add_Custom_Mapping_test",
+    "States": {
+        "Add_Custom_Mapping_test": {
+            "Type": "Task",
+            "Resource": "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${{self:functions.AddCustomMapping.name}}",
+            "Parameters": {
+                "key": "{{context.artifacts.event.details.codename}}",
+                "value": "{{context.artifacts.event.details.name}}"
+            },
+            "Next": "Query_Custom_Mapping_test"
+        },
+        "Query_Custom_Mapping_test": {
+            "Type": "Task",
+            "Resource": "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${{self:functions.QueryCustomMapping.name}}",
+            "Parameters": {
+                "key": "{{context.artifacts.event.details.codename}}"
+            },
+            "Next": "Was_Key_Found"
+        },
+        "Was_Key_Found": {
+            "Type": "Choice",
+            "Choices": [
+                {
+                    "Variable": "$.results.exists",
+                    "BooleanEquals": true,
+                    "Next": "Cache_Results_test"
+                },
+                {
+                    "Variable": "$.results.exists",
+                    "BooleanEquals": false,
+                    "Next": "FAIL_Key_Not_Found"
+                }
+            ],
+            "Default": "FAIL_Key_Not_Found"
+        },
+        "FAIL_Key_Not_Found": {
+            "Type": "Fail"
+        },
+        "Cache_Results_test": {
+            "Type": "Task",
+            "Resource": "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${{self:functions.CacheResults.name}}",
+            "Parameters": {
+                "entries": {
+                    "test_value": "{{context.results.Query_Custom_Mapping_test.mapping.value}}",
+                    "expected_value": "{{context.artifacts.event.details.name}}"
+                }
+            },
+            "Next": "Was_Cache_Succesful"
+        },
+        "Was_Cache_Succesful": {
+            "Type": "Choice",
+            "Choices": [
+                {
+                    "Variable": "$.results.cached.test_value",
+                    "StringEqualsPath": "$.results.cached.expected_value",
+                    "Next": "Http_Request_test"
+                }
+            ],
+            "Default": "FAIL_Cached_Variables_Not_Equal"
+        },
+        "FAIL_Cached_Variables_Not_Equal": {
+            "Type": "Fail"
+        },
+        "Http_Request_test": {
+            "Type": "Task",
+            "Resource": "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${{self:functions.HTTPRequest.name}}",
+            "Parameters": {
+                "method": "GET",
+                "url": "https://google.com",
+                "raise_for_status": true
+            },
+            "Next": "Counter_test"
+        },
+        "Counter_test": {
+            "Type": "Task",
+            "Resource": "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${{self:functions.Counter.name}}",
+            "Parameters": {
+                "state_name": "Counter_test",
+                "start": 0,
+                "delta": 1,
+                "direction": "up"
+            },
+            "Next": "Is_Counter_Working"
+        },
+        "Is_Counter_Working": {
+            "Type": "Choice",
+            "Choices": [
+                {
+                    "Variable": "$.results.current_value",
+                    "NumericEquals": 1,
+                    "Next": "Log_Findings_test"
+                }
+            ],
+            "Default": "FAIL_Counter_Not_Working"
+        },
+        "FAIL_Counter_Not_Working": {
+            "Type": "Fail"
+        },
+        "Log_Findings_test": {
+            "Type": "Task",
+            "Resource": "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${{self:functions.SoclessLogFindings.name}}",
+            "Parameters": {
+                "investigation_escalated": false,
+                "findings": "successful test"
+            },
+            "Next": "Close_Investigation_test"
+        },
+        "Close_Investigation_test": {
+            "Type": "Task",
+            "Resource": "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${{self:functions.SetInvestigationStatus.name}}",
+            "Parameters": {
+                "investigation_id": "{{context.artifacts.event.investigation_id}}",
+                "status": "closed"
+            },
+            "End": true
+        }
+    }
+}

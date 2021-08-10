@@ -14,11 +14,12 @@
 from socless import socless_bootstrap
 
 
-def handle_state():
+# SOCLESS_INTERNAL
+def handle_state(input: str = ""):
     """
-    This function is useful for testing things
+    This function is useful for testing things, feel free to modify
     """
-    return updated_count
+    return {"output": input}
 
 
 def lambda_handler(event, context):

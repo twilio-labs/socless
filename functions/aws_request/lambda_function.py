@@ -189,7 +189,7 @@ def handle_state(
      - calling the specified AWS operation in the target-account
      - Returning the results
 
-    This functinonality enables users leverage the integration for cross-account AWS automation use-cases.
+    This functionality enables users leverage the integration for cross-account AWS automation use-cases.
 
     To use this integration successfully, the user-configured delegate IAM Role must have:
 

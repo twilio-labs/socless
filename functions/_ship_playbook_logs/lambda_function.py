@@ -53,7 +53,7 @@ class LogsPayload:
     logEvents: List[dict]
 
 
-def convert_nested_json_strings(event):
+def convert_nested_json_strings(event: dict):
     """
     Converts Json nested as strings in the event to python dictionaries
     Args:
@@ -71,7 +71,7 @@ def convert_nested_json_strings(event):
     return converted_event
 
 
-def extract_execution_id(event):
+def extract_execution_id(event: dict):
     """
     Extracts the execution ID from a single event
 
@@ -168,6 +168,7 @@ def generate_logfile_content(logs_payload: LogsPayload, metadata: dict) -> bytes
     return logfile_contents
 
 
+# SOCLESS_INTERNAL
 def lambda_handler(event: dict, context):
     """Decode StepFunctions Logs payload, transform it and save to s3.
 

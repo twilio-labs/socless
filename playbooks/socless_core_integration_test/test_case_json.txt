@@ -1,0 +1,14 @@
+{
+  "name": "testing_socless_core",
+  "playbook": "SoclessCoreIntegrationTest",
+  "dedup_keys": [],
+  "data_types": {},
+  "event_meta": {},
+  "details": [
+    {
+      "name" : "Hal Emmerich",
+      "codename" : "Otacon",
+      "channel" : "141.12"
+    }
+  ]
+}

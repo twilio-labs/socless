@@ -15,16 +15,19 @@ from socless import socless_bootstrap
 import operator
 
 
-def handle_state(context, state_name, start, delta, direction="up"):
+def handle_state(
+    context, state_name: str, start: int, delta: int, direction: str = "up"
+):
     """
     Simple Counter
     Context: Socless Input object
     state_name: Name of the Socless state
     start: Starting value of the counter
     delta: Amount to change counter by
-    direction: Direction of the change
+    direction: (ENUM) up | down - Direction of the change
     """
     DIRECTIONS_MAP = {"up": operator.add, "down": operator.sub}
+    direction = direction.lower()
     if direction not in DIRECTIONS_MAP:
         return {
             "status": "Error",

@@ -19,7 +19,7 @@ from botocore.exceptions import ClientError
 EVENTS_TABLE = os.environ.get("SOCLESS_EVENTS_TABLE")
 
 
-def handle_state(investigation_id, status):
+def handle_state(investigation_id: str, status: str):
     """
     Set the Investigation ID to status.
     This is applied to the original incident
