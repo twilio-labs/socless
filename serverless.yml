@@ -29,12 +29,17 @@ provider:
       - Ref: SoclessPrivateFunctionSubnet
 
 plugins:
+  - sls-apb 
   - socless_integration_packager
 
 custom:
   soclessPackager:
     buildDir: build
   playbooksLogGroupName: /socless/playbook-execution-logs
+  # This is an example of an Integration Test playbook. 
+  # The integration test can be used to ensure that deployed functions will work correctly in a playbook environment
+  playbooks:
+    - socless_core_integration_test
 
 resources:
   - ${{file(resources/dynamodb.yml)}} # DynamoDB Tables
@@ -46,6 +51,18 @@ resources:
   - ${{file(resources/sg.yml)}} # Security Group resources
   - ${{file(resources/apigateway.yml)}} # API Gateway
   - ${{file(resources/playbook_logs.yml)}} # API Gateway
+  - Resources:
+      # This is an example of how you can keep a static input inside SSM for your integration test playbook.
+      # To run an integration test, supply this testcase to create_events which will start the integration test playbook.
+      SoclessIntegrationPlaybookTestcase:
+        Type: "AWS::SSM::Parameter"
+        Properties:
+          Description:
+            Fn::Sub: "Input for ${{self:service}}'s integration test playbook"
+          Name: /socless/integration_test_input
+          Type: String # test case is stored in plaintext in github, so not using a securestring here. Do not use secrets in the test case
+          # The test case must be valid JSON, but in order for serverless framework to read and upload to ssm the file needs to be .txt
+          Value: ${{file(playbooks/socless_core_integration_test/test_case_json.txt)}}
   - Outputs:
       MergeParallelOutput:
         Description: Merges the output from a parallel state into a unified object
