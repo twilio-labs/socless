@@ -35,7 +35,7 @@ provider:
     - Effect: Deny
       Action: Update:Replace
       Principal : "*"
-      Resource: "SoclessEIP"
+      Resource: LogicalResourceId/SoclessEIP
 
 
 plugins:
