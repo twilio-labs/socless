@@ -27,6 +27,12 @@ provider:
       - Fn::Sub: ${SoclessLambdaVpcSG.GroupId}
     subnetIds:
       - Ref: SoclessPrivateFunctionSubnet
+  stackPolicy:
+    - Effect: Allow
+      NotAction: Update:Delete
+      Principal: "*"
+      Resource : "*"
+
 
 plugins:
   - sls-apb
