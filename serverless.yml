@@ -32,6 +32,10 @@ provider:
       NotAction: Update:Delete
       Principal: "*"
       Resource : "*"
+    - Effect: Deny
+      Action: Update:Replace
+      Principal : "*"
+      Resource: "SoclessEIP"
 
 
 plugins:
