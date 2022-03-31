@@ -16,6 +16,7 @@ from socless import (
     SoclessEventsError,
 )
 
+
 # SOCLESS_INTERNAL
 def lambda_handler(event: dict, _):
     try:
