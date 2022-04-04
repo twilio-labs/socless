@@ -1,5 +1,17 @@
 # VPC Configurations
 Resources:
+  # VPC
+  SoclessVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.1.0.0/16
+      EnableDnsSupport: true
+      EnableDnsHostnames: false
+      InstanceTenancy: default
+      Tags:
+        - Key: Name
+          Value: Socless
+
   # EIP
   SoclessEIP:
     Type: AWS::EC2::EIP
@@ -23,6 +35,18 @@ Resources:
       VpcId:
         Ref: SoclessVPC
 
+  # Public Subnet
+  SoclessPublicSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 10.1.0.0/22
+      MapPublicIpOnLaunch: false
+      VpcId:
+        Ref: SoclessVPC
+      Tags:
+        - Key: Name
+          Value: Socless Public Subnet
+
   # NAT
   SoclessNat:
     Type: AWS::EC2::NatGateway
@@ -31,6 +55,30 @@ Resources:
         Fn::Sub: ${SoclessEIP.AllocationId}
       SubnetId:
         Ref: SoclessPublicSubnet
+
+  # Private Function Subnet
+  SoclessPrivateFunctionSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 10.1.4.0/22
+      MapPublicIpOnLaunch: false
+      VpcId:
+        Ref: SoclessVPC
+      Tags:
+        - Key: Name
+          Value: Socless Private Function Subnet
+
+  # Private Function Route Table
+  SoclessPrivateFunctionRouteTable:
+    Type: AWS::EC2::RouteTable
+    DependsOn: SoclessGateway
+    Properties:
+      VpcId:
+        Fn::Sub: ${SoclessVPC}
+      Tags:
+        - Key: Name
+          Value: Socless Private Function RouteTable
+
 
   # Private Function Route Table Association
   SoclessPrivateFunctionRouteTableAssoc:
@@ -79,16 +127,7 @@ Resources:
       RouteTableId:
         Ref: SoclessPublicRouteTable
 
-  # Private Function Route Table
-  SoclessPrivateFunctionRouteTable:
-    Type: AWS::EC2::RouteTable
-    DependsOn: SoclessGateway
-    Properties:
-      VpcId:
-        Fn::Sub: ${SoclessVPC}
-      Tags:
-        - Key: Name
-          Value: Socless Private Function RouteTable
+
 
   # Private Services Route Table
   SoclessPrivateServicesRouteTable:
@@ -112,17 +151,7 @@ Resources:
         - Key: Name
           Value: Socless Public RouteTable
 
-  # Private Function Subnet
-  SoclessPrivateFunctionSubnet:
-    Type: AWS::EC2::Subnet
-    Properties:
-      CidrBlock: 10.1.4.0/22
-      MapPublicIpOnLaunch: false
-      VpcId:
-        Ref: SoclessVPC
-      Tags:
-        - Key: Name
-          Value: Socless Private Function Subnet
+
 
   # Private Services Subnet
   SoclessPrivateServicesSubnet:
@@ -136,29 +165,9 @@ Resources:
         - Key: Name
           Value: Socless Private Services Subnet
 
-  # Public Subnet
-  SoclessPublicSubnet:
-    Type: AWS::EC2::Subnet
-    Properties:
-      CidrBlock: 10.1.0.0/22
-      MapPublicIpOnLaunch: false
-      VpcId:
-        Ref: SoclessVPC
-      Tags:
-        - Key: Name
-          Value: Socless Public Subnet
 
-  # VPC
-  SoclessVPC:
-    Type: AWS::EC2::VPC
-    Properties:
-      CidrBlock: 10.1.0.0/16
-      EnableDnsSupport: true
-      EnableDnsHostnames: false
-      InstanceTenancy: default
-      Tags:
-        - Key: Name
-          Value: Socless
+
+
 
 Outputs:
   PrivateFunctionSubnet:

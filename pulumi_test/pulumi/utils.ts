@@ -1,5 +1,6 @@
 import { getCallerIdentity, Tags } from '@pulumi/aws';
 import * as pulumi from '@pulumi/pulumi';
+import { AssertionError } from 'assert';
 
 export const accountID = getCallerIdentity().then((result) => result.accountId);
 export const PROJECT = pulumi.getProject();
@@ -28,23 +29,35 @@ export const tagDeprecated: Tags = {
   deprecation_status: 'deprecated',
 };
 
-export function stackToRegion() {
-  switch (pulumi.getStack().toLowerCase()) {
-    case 'dev':
-      'us-west-2';
-      break;
-    case 'stage':
-      'us-east-2';
-      break;
-    case 'prod':
-      'us-east-1';
-      break;
-    case 'sandbox':
-      'us-west-1';
-      break;
-    default:
-      throw new Error(`No region set for stage: ${pulumi.getStack()}`);
+export const soclessEnvs = ['dev', 'stage', 'prod', 'sandbox'] as const;
+
+export type SoclessEnv = typeof soclessEnvs[number];
+
+export function assertStackIsSoclessEnv(stackString: string): asserts stackString is SoclessEnv {
+  if (!soclessEnvs.includes(stackString as SoclessEnv)) {
+    throw new AssertionError({
+      message: `value: '${stackString}' is not a soclessEnv (${pretty(soclessEnvs)})`,
+    });
   }
+}
+
+export function convertEnvToRegion(envString: SoclessEnv) {
+  assertStackIsSoclessEnv(envString);
+  switch (envString) {
+    case 'dev':
+      return 'us-west-2';
+    case 'stage':
+      return 'us-east-2';
+    case 'prod':
+      return 'us-east-1';
+    case 'sandbox':
+      return 'us-west-1';
+  }
+}
+
+export function stackToRegion() {
+  const stack = pulumi.getStack().toLowerCase();
+  return convertEnvToRegion(stack as SoclessEnv);
 }
 
 export function buildIntegrationTag(soclessIntegrationName: string): Tags {

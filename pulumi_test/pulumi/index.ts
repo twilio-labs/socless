@@ -9,6 +9,7 @@ registerAutoTags({
   ...buildIntegrationTag('core'),
 });
 
+// create resources
 import { logsBucket, vaultBucket } from './s3';
 import {
   customMappingsTable,
@@ -22,8 +23,10 @@ import { lambdaKeyAlias, lambdaKey } from './kms';
 import { lambdaExecutionRole, statesExeuctionRole } from './iam';
 import { awaitMessageResponseActivity, saveMessageResponseTaskTokenMachine } from './sfn';
 import { playbookLogsGroup } from './logs';
+import { vpcConfig } from './vpc';
 
 // outputs from the socless core project, can be imported by other projects
+export * from './utils';
 export const soclessCoreProject = {
   buckets: {
     vault: vaultBucket,
@@ -52,6 +55,7 @@ export const soclessCoreProject = {
   logs: {
     playbookLogs: playbookLogsGroup,
   },
+  vpc: vpcConfig,
 };
 
 // export = async () => {

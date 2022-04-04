@@ -2,7 +2,7 @@ import * as pulumi from '@pulumi/pulumi';
 import * as aws from '@pulumi/aws';
 import * as awsx from '@pulumi/awsx';
 import { statesExeuctionRole } from './iam';
-import { tagDeprecated } from './tags';
+import { tagDeprecated } from './utils';
 
 /**
  * @deprecated AwaitMessageResponseActivity as it it now deprecated infrastructure
