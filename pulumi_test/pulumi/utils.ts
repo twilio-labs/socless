@@ -1,11 +1,14 @@
 import { getCallerIdentity, Tags } from '@pulumi/aws';
 import * as pulumi from '@pulumi/pulumi';
+import * as aws from '@pulumi/aws';
 import { AssertionError } from 'assert';
+import { defaultMaxListeners } from 'events';
+import { dedupTable } from './dynamodb';
 
 export const accountID = getCallerIdentity().then((result) => result.accountId);
 export const PROJECT = pulumi.getProject();
 export const STACK = pulumi.getStack();
-export const FULL_NAME = `${PROJECT}-${STACK}`;
+export const FULL_NAME = `${PROJECT}_${STACK}`;
 
 /**
  * registerAutoTags registers a global stack transformation that merges a set
@@ -20,6 +23,34 @@ export function registerAutoTags(autoTags: Record<string, string>): void {
     return undefined;
   });
 }
+
+/**
+ * registerAutoTags registers a global stack transformation that merges a set
+ * of tags with whatever was also explicitly added to the resource definition.
+ */
+export function registerLambdaDefaults(defaultArgs: aws.lambda.FunctionArgs): void {
+  pulumi.runtime.registerStackTransformation((args) => {
+    if (args.type === 'aws:lambda/function:Function') {
+      const oldProps = args.props as aws.lambda.FunctionArgs;
+      const newProps: aws.lambda.FunctionArgs = {
+        ...defaultArgs,
+        ...oldProps,
+        environment: {
+          variables: {
+            ...(defaultArgs.environment?.variables || {}),
+            ...(oldProps.environment?.variables || {}),
+          },
+        },
+        layers: [...new Set([...(defaultArgs.layers || []), ...oldProps.layers])],
+      };
+      return { props: { ...defaultArgs, ...oldProps }, opts: args.opts };
+    }
+
+    return undefined;
+  });
+}
+
+const test = [...['asdf']];
 
 export const tagSoclessPlatform: Tags = {
   platform: 'socless',
@@ -63,6 +94,23 @@ export function stackToRegion() {
 export function buildIntegrationTag(soclessIntegrationName: string): Tags {
   return {
     integration: soclessIntegrationName,
+  };
+}
+
+export function newSoclessLambda(
+  lambdaNameWithoutIntegration: string,
+  args: aws.lambda.FunctionArgs,
+  opts?: pulumi.CustomResourceOptions
+): {
+  [key: string]: aws.lambda.Function;
+} {
+  let fullName = `${pulumi.getProject().replace('-', '_')}_${lambdaNameWithoutIntegration}`;
+  if (lambdaNameWithoutIntegration.startsWith('_')) {
+    // private function, don't prepend `socless_<integration_name>`
+    fullName = lambdaNameWithoutIntegration;
+  }
+  return {
+    [fullName]: new aws.lambda.Function(fullName, { ...args, name: fullName }, opts),
   };
 }
 

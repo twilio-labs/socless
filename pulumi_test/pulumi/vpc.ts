@@ -21,9 +21,15 @@ export const soclessLambdaVpcSG = new aws.ec2.SecurityGroup(`${FULL_NAME}-securi
   },
 });
 
-const soclessEIP = new aws.ec2.Eip(`${FULL_NAME}-eip`, {
-  vpc: true,
-});
+const soclessEIP = new aws.ec2.Eip(
+  `${FULL_NAME}-eip`,
+  {
+    vpc: true,
+  },
+  {
+    protect: true, // prevents accidental deletion which could release the IP
+  }
+);
 
 const soclessInternetGateway = new aws.ec2.InternetGateway(`${FULL_NAME}-internetgateway`, {
   tags: {
@@ -135,8 +141,9 @@ const soclessPrivateFunctionRoute = new aws.ec2.Route(`${FULL_NAME}-PrivateFunct
 });
 
 // VPC Configurations
-export const vpcConfig = {
+export const soclessVpcExports = {
   vpc: soclessVPC,
+  sg: soclessLambdaVpcSG,
   eip: soclessEIP,
   publicSubnet: soclessPublicSubnet,
   privateFunctionSubnet: soclessPrivateFunctionSubnet,

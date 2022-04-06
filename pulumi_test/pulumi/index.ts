@@ -1,5 +1,5 @@
 import * as pulumi from '@pulumi/pulumi';
-import { buildIntegrationTag, registerAutoTags, tagSoclessPlatform } from './utils';
+import { buildIntegrationTag, PROJECT, registerAutoTags, tagSoclessPlatform } from './utils';
 
 // Run this before any resources are created to ensure default tags get added
 registerAutoTags({
@@ -23,7 +23,8 @@ import { lambdaKeyAlias, lambdaKey } from './kms';
 import { lambdaExecutionRole, statesExeuctionRole } from './iam';
 import { awaitMessageResponseActivity, saveMessageResponseTaskTokenMachine } from './sfn';
 import { playbookLogsGroup } from './logs';
-import { vpcConfig } from './vpc';
+import { soclessVpcExports } from './vpc';
+import { defaultEnvVars, functions } from './lambda';
 
 // outputs from the socless core project, can be imported by other projects
 export * from './utils';
@@ -48,6 +49,10 @@ export const soclessCoreProject = {
     lambdaExecutionRole: lambdaExecutionRole,
     statesExecutionRole: statesExeuctionRole,
   },
+  lambda: {
+    defaultEnvVars: defaultEnvVars,
+    functions: functions,
+  },
   sfn: {
     awaitMessageResponseActivity: awaitMessageResponseActivity,
     saveMessageResponseTaskToken: saveMessageResponseTaskTokenMachine,
@@ -55,7 +60,7 @@ export const soclessCoreProject = {
   logs: {
     playbookLogs: playbookLogsGroup,
   },
-  vpc: vpcConfig,
+  vpc: soclessVpcExports,
 };
 
 // export = async () => {
