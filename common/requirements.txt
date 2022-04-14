@@ -1,2 +1,2 @@
 # Global Requirements file
-git+https://github.com/twilio-labs/socless_python.git@1.6.0#egg=socless
+https://github.com/twilio-labs/socless_python/releases/download/1.6.0/socless-1.5.0.tar.gz
