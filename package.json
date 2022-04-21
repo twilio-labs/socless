@@ -1,7 +1,7 @@
 {
   "name": "socless",
   "config": {
-    "aws_profile": "default",
+    "aws_profile": "--aws-profile default",
     "dev": "--stage dev --region us-west-2",
     "stage": "--stage stage --region us-east-2",
     "prod": "--stage prod --region us-east-1",
@@ -14,16 +14,13 @@
     "test": ". venv/bin/activate && tox",
     "build-funcs": "node node_modules/lambda-packager/build/src/main.js functions -c common -o .archives/functions -u 'no-linux'",
     "build-layers": "node node_modules/lambda-packager/build/src/main.js layers -o .archives/layers -u 'no-linux' || true",
+    "build-all": "$npm_execpath run build-funcs && $npm_execpath run build-layers",
     "pretest": "python3 -m venv venv && . venv/bin/activate && pip3 install tox -qq",
     "posttest": "find . | grep -E '(__pycache__|.pytest_cache|.egg-info)' | xargs rm -rf",
-    "predev": "$npm_execpath run build-funcs && $npm_execpath run build-layers",
-    "dev": "serverless deploy $npm_package_config_dev --aws-profile $npm_package_config_aws_profile --verbose ",
-    "prestage": "$npm_execpath run build-funcs && $npm_execpath run build-layers",
-    "stage": "serverless deploy $npm_package_config_stage --aws-profile $npm_package_config_aws_profile --verbose",
-    "preprod": "$npm_execpath run build-funcs && $npm_execpath run build-layers",
-    "prod": "serverless deploy $npm_package_config_prod --aws-profile $npm_package_config_aws_profile --verbose",
-    "presandbox": "$npm_execpath run build-funcs && $npm_execpath run build-layers",
-    "sandbox": "serverless deploy $npm_package_config_sandbox --aws-profile $npm_package_config_aws_profile --verbose"
+    "dev": "$npm_execpath run build-all && serverless deploy $npm_package_config_dev $npm_package_config_aws_profile --verbose ",
+    "stage": "$npm_execpath run build-all && serverless deploy $npm_package_config_stage $npm_package_config_aws_profile --verbose",
+    "prod": "$npm_execpath run build-all && serverless deploy $npm_package_config_prod $npm_package_config_aws_profile --verbose",
+    "sandbox": "$npm_execpath run build-all && serverless deploy $npm_package_config_sandbox $npm_package_config_aws_profile --verbose"
   },
   "repository": {
     "type": "git",
@@ -39,7 +36,7 @@
   "devDependencies": {},
   "dependencies": {
     "serverless": "2.57.0",
-    "lambda-packager": "git+https://github.com/twilio-labs/socless_lambda_packager.git#v0.1.0",
-    "sls-apb": "git+https://github.com/twilio-labs/sls-apb.git#1.4.3"
+    "lambda-packager": "twilio-labs/socless_lambda_packager.git#v0.1.0",
+    "sls-apb": "twilio-labs/sls-apb.git#1.4.3"
   }
 }
