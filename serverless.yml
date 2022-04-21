@@ -40,7 +40,6 @@ provider:
 
 plugins:
   - sls-apb
-  - socless_integration_packager
 
 custom:
   soclessPackager:
@@ -145,16 +144,14 @@ functions:
     name: socless_http_request
     description: Make an http request with the Python Requests library
     package:
-      include:
-        - functions/http_request
+      artifact: .archives/functions/http_request.zip
 
   MergeParallelOutput:
     handler: lambda_function.lambda_handler
     name: _socless_merge_parallel_output
     description: Merges the output from a Parallel state into a unified object
     package:
-      include:
-        - functions/_merge_parallel_output
+      artifact: .archives/functions/_merge_parallel_output.zip
 
   SaveMessageResponseToken:
     handler: lambda_function.lambda_handler
@@ -166,16 +163,14 @@ functions:
       MESSAGE_RESPONSES_TABLE:
         Ref: MessageResponsesTable
     package:
-      include:
-        - functions/_save_msg_resp_token
+      artifact: .archives/functions/_save_msg_resp_token.zip
 
   Counter:
     handler: lambda_function.lambda_handler
     name: _socless_counter
     description: Simple counter functionality
     package:
-      include:
-        - functions/counter
+      artifact: .archives/functions/counter.zip
 
   SetInvestigationStatus:
     handler: lambda_function.lambda_handler
@@ -185,16 +180,14 @@ functions:
         Ref: EventsTable
     description: Socless integration to set an investigations status
     package:
-      include:
-        - functions/set_investigation_status
+      artifact: .archives/functions/set_investigation_status.zip
 
   Playground:
     handler: lambda_function.lambda_handler
     name: _socless_playground
     description: Function for playing around with Socless' Configuration
     package:
-      include:
-        - functions/playground
+      artifact: .archives/functions/playground.zip
 
   AddCustomMapping:
     handler: lambda_function.lambda_handler
@@ -204,8 +197,7 @@ functions:
       SOCLESS_CUSTOM_MAPPINGS_TABLE:
         Ref: CustomMappingsTable
     package:
-      include:
-        - functions/add_custom_mapping
+      artifact: .archives/functions/add_custom_mapping.zip
 
   QueryCustomMapping:
     handler: lambda_function.lambda_handler
@@ -215,8 +207,7 @@ functions:
       SOCLESS_CUSTOM_MAPPINGS_TABLE:
         Ref: CustomMappingsTable
     package:
-      include:
-        - functions/query_custom_mapping
+      artifact: .archives/functions/query_custom_mapping.zip
 
   CreateEvents:
     handler: lambda_function.lambda_handler
@@ -230,8 +221,7 @@ functions:
       SOCLESS_PLAYBOOKS_TABLE:
         Ref: PlaybooksTable
     package:
-      include:
-        - functions/create_events
+      artifact: .archives/functions/create_events.zip
 
   SetupGlobalStateForDirectInvokedPlaybook:
     handler: lambda_function.lambda_handler
@@ -240,16 +230,14 @@ functions:
     memorySize: 128
     timeout: 120
     package:
-      include:
-        - functions/_setup_global_state_for_direct_invoked_playbook
+      artifact: .archives/functions/_setup_global_state_for_direct_invoked_playbook.zip
 
   CacheResults:
     handler: lambda_function.lambda_handler
     name: socless_cache_results
     description: Cache return results
     package:
-      include:
-        - functions/cache_results
+      artifact: .archives/functions/cache_results.zip
 
   SavePlaybookExecutionLogs:
     handler: lambda_function.lambda_handler
@@ -261,8 +249,7 @@ functions:
       SOCLESS_LOGS:
         Ref: SoclessLogs
     package:
-      include:
-        - functions/_ship_playbook_logs
+      artifact: .archives/functions/_ship_playbook_logs.zip
     events:
       - cloudwatchLog:
           logGroup: ${{self:custom.playbooksLogGroupName}}
@@ -277,8 +264,7 @@ functions:
       SOCLESS_Logs:
         Ref: SoclessLogs
     package:
-      include:
-        - functions/socless_log_findings
+      artifact: .archives/functions/socless_log_findings.zip
 
   AWSRequest:
     handler: lambda_function.lambda_handler
@@ -288,5 +274,4 @@ functions:
       SOCLESS_Logs:
         Ref: SoclessLogs
     package:
-      include:
-        - functions/aws_request
+      artifact: .archives/functions/aws_request.zip

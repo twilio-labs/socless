@@ -12,11 +12,17 @@
   "main": "index.js",
   "scripts": {
     "test": ". venv/bin/activate && tox",
+    "build-funcs": "node node_modules/lambda-packager/build/src/main.js functions -c common -o .archives/functions -u 'no-linux'",
+    "build-layers": "node node_modules/lambda-packager/build/src/main.js layers -o .archives/layers -u 'no-linux' || true",
     "pretest": "python3 -m venv venv && . venv/bin/activate && pip3 install tox -qq",
     "posttest": "find . | grep -E '(__pycache__|.pytest_cache|.egg-info)' | xargs rm -rf",
+    "predev": "$npm_execpath run build-funcs && $npm_execpath run build-layers",
     "dev": "serverless deploy $npm_package_config_dev --aws-profile $npm_package_config_aws_profile --verbose ",
+    "prestage": "$npm_execpath run build-funcs && $npm_execpath run build-layers",
     "stage": "serverless deploy $npm_package_config_stage --aws-profile $npm_package_config_aws_profile --verbose",
+    "preprod": "$npm_execpath run build-funcs && $npm_execpath run build-layers",
     "prod": "serverless deploy $npm_package_config_prod --aws-profile $npm_package_config_aws_profile --verbose",
+    "presandbox": "$npm_execpath run build-funcs && $npm_execpath run build-layers",
     "sandbox": "serverless deploy $npm_package_config_sandbox --aws-profile $npm_package_config_aws_profile --verbose"
   },
   "repository": {
@@ -33,7 +39,7 @@
   "devDependencies": {},
   "dependencies": {
     "serverless": "2.57.0",
-    "sls-apb": "git+https://github.com/twilio-labs/sls-apb.git#1.4.3",
-    "socless_integration_packager": "git+https://github.com/twilio-labs/socless_integration_packager.git#1.0.0"
+    "lambda-packager": "git+https://github.com/twilio-labs/socless_lambda_packager.git#v0.1.0",
+    "sls-apb": "git+https://github.com/twilio-labs/sls-apb.git#1.4.3"
   }
 }
