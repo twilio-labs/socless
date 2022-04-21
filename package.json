@@ -13,7 +13,7 @@
   "scripts": {
     "test": ". venv/bin/activate && tox",
     "build-funcs": "node node_modules/lambda-packager/build/src/main.js functions -c common -o .archives/functions -u 'no-linux'",
-    "build-layers": "node node_modules/lambda-packager/build/src/main.js layers -o .archives/layers -u 'no-linux'",
+    "build-layers": "node node_modules/lambda-packager/build/src/main.js layers -o .archives/layers -u 'no-linux' || true",
     "pretest": "python3 -m venv venv && . venv/bin/activate && pip3 install tox -qq",
     "posttest": "find . | grep -E '(__pycache__|.pytest_cache|.egg-info)' | xargs rm -rf",
     "predev": "$npm_execpath run build-funcs && $npm_execpath run build-layers",
@@ -39,7 +39,7 @@
   "devDependencies": {},
   "dependencies": {
     "serverless": "2.57.0",
-    "lambda-packager": "git+https://github.com/noxasaxon/python-lambda-packager.git#4f4a9de5ad78aa8b0e3cbb1b5450720162525274",
+    "lambda-packager": "git+https://github.com/twilio-labs/socless_lambda_packager.git#v0.1.0",
     "sls-apb": "git+https://github.com/twilio-labs/sls-apb.git#1.4.3"
   }
 }
