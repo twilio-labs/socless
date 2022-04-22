@@ -1,5 +1,8 @@
 {
   "name": "socless",
+  "version": "1.0.0",
+  "description": "Socless' core infrastructure and functionality",
+  "main": "index.js",
   "config": {
     "aws_profile": "--aws-profile default",
     "dev": "--stage dev --region us-west-2",
@@ -7,9 +10,6 @@
     "prod": "--stage prod --region us-east-1",
     "sandbox": "--stage sandbox --region us-west-1"
   },
-  "version": "1.0.0",
-  "description": "Socless' core infrastructure and functionality",
-  "main": "index.js",
   "scripts": {
     "test": ". venv/bin/activate && tox",
     "build-funcs": "node node_modules/lambda-packager/build/src/main.js functions -c common -o .archives/functions -u 'no-linux'",
@@ -22,6 +22,12 @@
     "prod": "$npm_execpath run build-all && serverless deploy $npm_package_config_prod $npm_package_config_aws_profile --verbose",
     "sandbox": "$npm_execpath run build-all && serverless deploy $npm_package_config_sandbox $npm_package_config_aws_profile --verbose"
   },
+  "devDependencies": {},
+  "dependencies": {
+    "serverless": "2.57.0",
+    "lambda-packager": "twilio-labs/socless_lambda_packager#v0.1.0",
+    "sls-apb": "twilio-labs/sls-apb#1.4.3"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/twilio-labs/socless.git"
@@ -32,11 +38,5 @@
     "automation"
   ],
   "author": "Ubani Balogun",
-  "license": "ISC",
-  "devDependencies": {},
-  "dependencies": {
-    "serverless": "2.57.0",
-    "lambda-packager": "twilio-labs/socless_lambda_packager.git#v0.1.0",
-    "sls-apb": "twilio-labs/sls-apb.git#1.4.3"
-  }
+  "license": "ISC"
 }
