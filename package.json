@@ -3,13 +3,6 @@
   "engines": {
     "node": ">=14.0.0"
   },
-  "config": {
-    "aws_profile": "default",
-    "dev": "--stage dev --region us-west-2",
-    "stage": "--stage stage --region us-east-2",
-    "prod": "--stage prod --region us-east-1",
-    "sandbox": "--stage sandbox --region us-west-1"
-  },
   "version": "1.0.0",
   "description": "Socless' core infrastructure and functionality",
   "main": "index.js",
@@ -18,10 +11,10 @@
     "pretest": "python3 -m venv venv && . venv/bin/activate && pip3 install tox -qq",
     "posttest": "find . | grep -E '(__pycache__|.pytest_cache|.egg-info)' | xargs rm -rf",
     "build-funcs": "node node_modules/lambda-packager/build/src/main.js functions -c common -o .archives/functions -u 'no-linux'",
-    "dev": "$npm_execpath run build-funcs && serverless deploy $npm_package_config_dev $npm_package_config_aws_profile --verbose ",
-    "stage": "$npm_execpath run build-funcs && serverless deploy $npm_package_config_stage $npm_package_config_aws_profile --verbose",
-    "prod": "$npm_execpath run build-funcs && serverless deploy $npm_package_config_prod $npm_package_config_aws_profile --verbose",
-    "sandbox": "$npm_execpath run build-funcs && serverless deploy $npm_package_config_sandbox $npm_package_config_aws_profile --verbose"
+    "dev": "$npm_execpath run build-funcs && serverless deploy --stage dev --region us-west-2 --verbose",
+    "stage": "$npm_execpath run build-funcs && serverless deploy --stage stage --region us-east-2 --verbose",
+    "prod": "$npm_execpath run build-funcs && serverless deploy --stage prod --region us-east-1 --verbose",
+    "sandbox": "$npm_execpath run build-funcs && serverless deploy --stage sandbox --region us-west-1 --verbose"
   },
   "repository": {
     "type": "git",

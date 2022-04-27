@@ -42,8 +42,6 @@ plugins:
   - sls-apb
 
 custom:
-  soclessPackager:
-    buildDir: build
   playbooksLogGroupName: /socless/playbook-execution-logs
   # This is an example of an Integration Test playbook.
   # The integration test can be used to ensure that deployed functions will work correctly in a playbook environment
