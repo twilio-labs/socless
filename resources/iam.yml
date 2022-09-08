@@ -27,7 +27,6 @@ Resources:
         - arn:aws:iam::aws:policy/AmazonS3FullAccess
         - arn:aws:iam::aws:policy/AmazonSESFullAccess
         - arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess
-        - arn:aws:iam::aws:policy/AmazonSQSFullAccess
       Policies:
         - PolicyName:
             Fn::Sub: "${AWS::StackName}-aws-request-integration-policy"
@@ -36,6 +35,9 @@ Resources:
             Statement:
               - Effect: "Allow"
                 Action: "sts:AssumeRole"
+                Resource: "*"
+              - Effect: "Allow"
+                Action: "sqs:*"
                 Resource: "*"
 
   # AWS SFN State Machine Policy
