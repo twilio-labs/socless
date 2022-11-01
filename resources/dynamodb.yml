@@ -13,9 +13,7 @@ Resources:
         -
           AttributeName: id
           KeyType: HASH
-      ProvisionedThroughput:
-        ReadCapacityUnits: 200
-        WriteCapacityUnits: 200
+      BillingMode: PAY_PER_REQUEST
 
   # Execution Results Table
   ExecutionResultsTable:
@@ -30,9 +28,7 @@ Resources:
           -
             AttributeName: execution_id
             KeyType: HASH
-        ProvisionedThroughput:
-          ReadCapacityUnits: 60
-          WriteCapacityUnits: 60
+        BillingMode: PAY_PER_REQUEST
 
 
   # Message Responses Table
@@ -48,9 +44,7 @@ Resources:
         -
           AttributeName: message_id
           KeyType: HASH
-      ProvisionedThroughput:
-        ReadCapacityUnits: 50
-        WriteCapacityUnits: 50
+      BillingMode: PAY_PER_REQUEST
 
   # Playbooks Table
   PlaybooksTable:
@@ -65,9 +59,7 @@ Resources:
         -
           AttributeName: StateMachine
           KeyType: HASH
-      ProvisionedThroughput:
-        ReadCapacityUnits: 5
-        WriteCapacityUnits: 5
+      BillingMode: PAY_PER_REQUEST
 
   # Lists Table
   CustomMappingsTable:
@@ -82,9 +74,7 @@ Resources:
         -
           AttributeName: key
           KeyType: HASH
-      ProvisionedThroughput:
-        ReadCapacityUnits: 10
-        WriteCapacityUnits: 10
+      BillingMode: PAY_PER_REQUEST
 
   # Dedup Table
   DedupTable:
@@ -99,9 +89,7 @@ Resources:
         -
           AttributeName: dedup_hash
           KeyType: HASH
-      ProvisionedThroughput:
-        ReadCapacityUnits: 50
-        WriteCapacityUnits: 50
+      BillingMode: PAY_PER_REQUEST
 
 
 # Resource outputs
