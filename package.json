@@ -29,7 +29,7 @@
   "license": "ISC",
   "devDependencies": {},
   "dependencies": {
-    "serverless": "2.57.0",
+    "serverless": "3.25.1",
     "lambda-packager": "git+https://github.com/twilio-labs/socless_lambda_packager.git#v0.1.0",
     "sls-apb": "git+https://github.com/twilio-labs/sls-apb.git#1.4.3"
   }
