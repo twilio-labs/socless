@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License
 from typing import Any
-from socless import socless_bootstrap, socless_template_string
+from socless import socless_bootstrap
 
 
 def handle_state(execution_context, entries: Any):
@@ -28,13 +28,11 @@ def handle_state(execution_context, entries: Any):
         A dictionary that contains the thing you want to be cached.
         {"cached": data}
     """
-    if isinstance(entries, str):
-        entries = socless_template_string(entries, execution_context)
-    elif isinstance(entries, dict):
+    if isinstance(entries, dict):
         new_entries = {}
         for key, value in list(entries.items()):
             if isinstance(value, str):
-                new_entries[key] = socless_template_string(value, execution_context)
+                new_entries[key] = value
             else:
                 new_entries[key] = value
         entries = new_entries

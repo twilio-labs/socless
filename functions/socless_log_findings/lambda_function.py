@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License
-from socless import socless_bootstrap, gen_id, save_to_s3, socless_template_string
+from socless import socless_bootstrap, gen_id, save_to_s3
 from datetime import datetime
 import urllib.parse
 import os
@@ -76,10 +76,10 @@ def lambda_handler(event, ctx):
         }
 
         try:
-            findings = socless_template_string(urllib.parse.unquote(findings), context)
+            findings = urllib.parse.unquote(findings)
         except Exception as e:
             print(
-                f"unable to parse socless_template_string. Error: {e}. Findings: {findings}"
+                f"unable to parse findings. Error: {e}. Findings: {findings}"
             )
             raise
 
